@@ -10,9 +10,13 @@
   "author": "DanielT",
   "type": "commonjs",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "demo": "npx playwright test tests/demo/mytest.spec.ts --headed"
+  },
   "devDependencies": {
     "@playwright/test": "^1.57.0",
-    "@types/node": "^25.0.10"
+    "@types/node": "^25.0.10",
+    "allure-playwright": "^3.4.5",
+    "dotenv": "^17.2.3"
   }
 }
