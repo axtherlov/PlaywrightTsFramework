@@ -11,7 +11,8 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "demo": "npx playwright test tests/demo/mytest.spec.ts --headed"
+    "demo": "npx playwright test tests/demo/mytest.spec.ts --headed",
+    "login": "npx playwright test tests/functional/login.spec.ts --headed"
   },
   "devDependencies": {
     "@playwright/test": "^1.57.0",
