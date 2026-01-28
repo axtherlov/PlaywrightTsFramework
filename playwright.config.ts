@@ -1,18 +1,21 @@
-import { defineConfig, devices } from '@playwright/test';
-import { suite } from 'node:test';
+import { defineConfig, devices } from "@playwright/test";
+import { suite } from "node:test";
 
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
+import dotenv from 'dotenv';
+import path from 'path';
+dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  globalTimeout: 3 * 60 * 1000,
+  globalSetup: require.resolve("./tests/helpers/global-setup"),
+  globalTeardown: require.resolve("./tests/helpers/global-teardown"),
   testDir: "./tests",
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -22,6 +25,10 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
+  /* expect config */
+  expect: {
+    timeout: 10_000,
+  },
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     [
@@ -54,15 +61,21 @@ export default defineConfig({
     ignoreHTTPSErrors: true,
     navigationTimeout: 30_000,
     screenshot: "on",
+    video: "retain-on-failure",
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      use: {
+        //...devices["Desktop Chrome"],
+        viewport: null,
+        launchOptions: {
+          args: ["--start-maximized"],
+        },
+      },
     },
-
     // {
     //   name: 'firefox',
     //   use: { ...devices['Desktop Firefox'] },

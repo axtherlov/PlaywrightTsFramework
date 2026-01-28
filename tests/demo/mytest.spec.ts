@@ -13,17 +13,7 @@ test("Should load homepage with correct title", async ({ page }) => {
     await expect(page.locator("//h1")).toHaveText("CURA Healthcare Service");
 });
 
-test("Should do something", { tag: "@smoke" }, async ({ page }, testInfo) => {
-    // steps..
-    await page.locator("//h1").click();
-});
-
 test("Should demo locators", async ({ page }) => {
-    // ✅ `page.getBy*()` and `page.locator()` methods returns the `locator` object
-    // ✅ The above methods not to be `awaited`
-    // ✅ The type of locator is an `object`
-    // ✅ Locators are LAZY until an action is fired on them
-
     // 1. Launch URL
     await page.goto("https://katalon-demo-cura.herokuapp.com/");
 
@@ -54,10 +44,6 @@ test("Should demo parallel run 1", { tag: "@demo" }, async ({ page }, testInfo) 
 
 test("Should demo parallel run 2", { tag: "@demo" }, async ({ page }, testInfo) => {
     await page.goto("https://www.google.com");
-});
-
-test("Should demo constants data", async ({ page }, testInfo) => {
-    //console.log(`>> Constants data: ${JSON.stringify(constants.STATUSCODES)}`);
 });
 
 test.only("Should demo a click action", async ({ page }, testInfo) => {

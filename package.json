@@ -12,6 +12,8 @@
   "main": "index.js",
   "scripts": {
     "demo": "npx playwright test tests/demo/mytest.spec.ts --headed",
+    "demotrace": "npx playwright test tests/demo/mytest.spec.ts --trace on",
+    "demotag": "npx playwright test --grep @smoke --headed",
     "login": "npx playwright test tests/functional/login.spec.ts --headed"
   },
   "devDependencies": {
