@@ -14,7 +14,8 @@
     "demo": "npx playwright test tests/demo/mytest.spec.ts --headed",
     "demotrace": "npx playwright test tests/demo/mytest.spec.ts --trace on",
     "demotag": "npx playwright test --grep @smoke --headed",
-    "login": "npx playwright test tests/functional/login.spec.ts --headed"
+    "login": "npx playwright test tests/functional/login.spec.ts --headed",
+    "runenv": "npx playwright test --config=config/test.playwright.config.ts tests/demo/runtest-from-environment.spec.ts --headed"
   },
   "devDependencies": {
     "@playwright/test": "^1.57.0",
