@@ -11,6 +11,7 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
+    "test:e2e": "npx playwright test --config=config/test.playwright.config.ts tests/e2e/nopcommerce.e2e.spec.ts --headed",
     "demo": "npx playwright test tests/demo/mytest.spec.ts --headed",
     "demotrace": "npx playwright test tests/demo/mytest.spec.ts --trace on",
     "demotag": "npx playwright test --grep @smoke --headed",
@@ -21,6 +22,7 @@
     "@playwright/test": "^1.57.0",
     "@types/node": "^25.0.10",
     "allure-playwright": "^3.4.5",
+    "chalk": "^5.6.2",
     "dotenv": "^17.2.3"
   }
 }
