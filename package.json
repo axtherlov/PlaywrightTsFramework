@@ -11,6 +11,7 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
+    "test:api": "npx playwright test --config=config/test.playwright.config.ts tests/api/users.api.spec.ts",
     "test:e2e": "npx playwright test --config=config/test.playwright.config.ts tests/e2e/nopcommerce.e2e.spec.ts --headed",
     "demo": "npx playwright test tests/demo/mytest.spec.ts --headed",
     "demotrace": "npx playwright test tests/demo/mytest.spec.ts --trace on",
