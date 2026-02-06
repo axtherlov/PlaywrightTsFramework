@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { log } from "../helpers/logger.js";
-import HomePage from "../page-objects/nopcommerce.home.page";
+import { log } from "../../src/core/helpers/logger.js";
+import HomePage from "../../src/ui/components/page-objects/nopcommerce.home.page";
 import constants from "../../data/constants.json";
 
 test.describe("E2E Customer Search", () => {
@@ -8,22 +8,22 @@ test.describe("E2E Customer Search", () => {
         // Env Config
         const envConfig = testInfo.project.use as any;
 
-        // /**1. Get list of users */
-        // // Make a GET call
-        // await log("info", `Making a GET call using ${envConfig.apiURL}`);
-        // const res = await request.get(`${envConfig.apiURL}${constants.REQ_RES_ENDPOINTS.GET_USERS_LIST}`, {
-        //     headers: {
-        //         "x-api-key": process.env.RES_RES_API_KEY,
-        //     },
-        // });
+        /**1. Get list of users */
+        // Make a GET call
+        await log("info", `Making a GET call using ${envConfig.apiURL}`);
+        const res = await request.get(`${envConfig.apiURL}${constants.REQ_RES_ENDPOINTS.GET_USERS_LIST}`, {
+            headers: {
+                "x-api-key": process.env.RES_RES_API_KEY,
+            },
+        });
 
-        // // Assert the status code
-        // expect(res.status()).toBe(200);
-        // await log("info", `The GET call is succesfull with ${res.status()}`);
+        // Assert the status code
+        expect(res.status()).toBe(200);
+        await log("info", `The GET call is succesfull with ${res.status()}`);
 
-        // // Get list of users
-        // const userData = await res.json();
-        // log("info", `List of users: ${JSON.stringify(userData)}`);
+        // Get list of users
+        const userData = await res.json();
+        log("info", `List of users: ${JSON.stringify(userData)}`);
 
         /**2. Login to web */
         const homePage = new HomePage(page);

@@ -1,5 +1,5 @@
 import { Page } from "@playwright/test";
-import { log } from "../helpers/logger";
+import { log } from "../../../core/helpers/logger";
 
 export default class BasePage {
   readonly page: Page;

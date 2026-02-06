@@ -1,8 +1,8 @@
 import { test, expect, request } from "@playwright/test";
-import { log } from "../helpers/logger.js";
+import { log } from "../../src/core/helpers/logger.js";
 import constants from "../../data/constants.json";
 import TestData from "../../data/test-data.js";
-import fileHelper from "../helpers/file-helper.js";
+import fileHelper from "../../src/core/helpers/file-helper.js";
 
 test.describe("REST API Demo", () => {
     let envConfig = undefined;

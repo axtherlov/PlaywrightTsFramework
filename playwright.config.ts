@@ -15,8 +15,8 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 export const baseConfig = defineConfig({
   testDir: "./tests",
   globalTimeout: 3 * 60 * 1000,
-  globalSetup: require.resolve("./tests/helpers/global-setup"),
-  globalTeardown: require.resolve("./tests/helpers/global-teardown"),  
+  globalSetup: require.resolve("./src/global/global-setup"),
+  globalTeardown: require.resolve("./src/global/global-teardown"),  
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */

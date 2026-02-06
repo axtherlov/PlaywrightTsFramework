@@ -7,6 +7,6 @@
     "strict": false,
     "noImplicitAny": false
   },
-  "include": ["tests/**/*.ts", "data/**/*.ts", "playwright.config.ts"],
+  "include": ["tests/**/*.ts", "data/**/*.ts", "playwright.config.ts", "src/core/helpers/logger.ts", "src/core/helpers/file-helper.ts", "src/global/global-teardown.ts", "src/global/global-setup.ts", "src/core/helpers/pw-helper.ts"],
   "exclude": ["node_modules", "dist"]
 }
