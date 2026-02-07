@@ -8,7 +8,7 @@ pipeline {
   }
   environment {
     TEST_CREDS = credentials('test-user')
-    PLAYWRIGHT_IMAGE = 'mcr.microsoft.com/playwright:v1.42.0-jammy'
+    PLAYWRIGHT_IMAGE = 'mcr.microsoft.com/playwright:v1.58.0-noble'
   }
   stages {
     stage('Install dependencies') {
@@ -22,6 +22,7 @@ pipeline {
       steps {
         bat '''
           docker run --rm ^
+            --user root ^
             -v "%WORKSPACE%:/tests" ^
             -w /tests ^
             -e "TEST_USER_NAME=%TEST_CREDS_USR%" ^
