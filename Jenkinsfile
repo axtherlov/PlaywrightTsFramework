@@ -13,8 +13,7 @@ pipeline {
     stage('Install dependencies') {
       steps {
         bat '''
-          npm install
-          npx playwright install
+          npm install && npx playwright install          
         '''
       }
     }
