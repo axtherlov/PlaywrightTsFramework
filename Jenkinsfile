@@ -1,10 +1,5 @@
 pipeline {
-  agent {
-    docker {
-      image 'mcr.microsoft.com/playwright:v1.57.0-jammy'
-      reuseNode true
-    }
-  }
+  agent any
   tools { 
     nodejs 'nodeLTS_24130' // Jenkins > Global Tool Config: NodeJS named "nodeLTS_24130"
      allure 'allure' // Jenkins > Global Tool Config: Allure named "allure"
@@ -13,12 +8,15 @@ pipeline {
     timeout(time: 20, unit: 'MINUTES') // To prevent running for long time 
   }
   // Binds TEST_CREDS_USR and TEST_CREDS_PSW
-  environment { TEST_CREDS = credentials('test-user') }
+  environment { 
+    TEST_CREDS = credentials('test-user')
+    PLAYWRIGHT_BROWSERS_PATH = "${WORKSPACE}\\ms-playwright"
+  }
   // -eu: shell safety setting (e -Exit immediately if any command fails; u- Treat unset variables as errors.)
   stages {
     stage('Build') {
       steps {
-        sh '''
+        bat '''
           npm ci
           npx playwright install
         '''
@@ -26,9 +24,9 @@ pipeline {
     }
     stage('Test') {
       steps {
-        sh '''
-          export TEST_USER_NAME="$TEST_CREDS_USR"
-          export TEST_PASSWORD="$TEST_CREDS_PSW"
+        bat '''
+          set TEST_USER_NAME=%TEST_CREDS_USR%
+          set TEST_PASSWORD=%TEST_CREDS_PSW%
           npm run demo
         '''
       }
