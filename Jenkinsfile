@@ -1,5 +1,10 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'mcr.microsoft.com/playwright:v1.57.0-jammy'
+      args '-v /var/run/docker.sock:/var/run/docker.sock'
+    }
+  }
   tools { 
     nodejs 'nodeLTS_24130' // Jenkins > Global Tool Config: NodeJS named "nodeLTS_24130"
      allure 'allure' // Jenkins > Global Tool Config: Allure named "allure"
@@ -16,7 +21,6 @@ pipeline {
         sh '''
           set -eu 
           npm ci
-          npx playwright install-deps
           npx playwright install
         '''
       }
