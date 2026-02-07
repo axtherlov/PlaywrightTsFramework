@@ -21,8 +21,8 @@ pipeline {
     stage('Run Playwright tests (Docker)') {
       steps {
         bat '''          
-            -e "TEST_USER_NAME=%TEST_CREDS_USR%" ^
-            -e "TEST_PASSWORD=%TEST_CREDS_PSW%" ^            
+            set TEST_USER_NAME=%TEST_CREDS_USR%
+            set TEST_PASSWORD=%TEST_CREDS_PSW%            
             npm run demo
         '''
       }
