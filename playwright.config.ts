@@ -35,11 +35,14 @@ export const baseConfig = defineConfig({
       "html",
       {
         open: "never",
+        outputFolder: "playwright-report",
       },
     ],
     [
       "allure-playwright",
       {
+        path: "allure-results",
+        outputFolder: "/tmp/allure-results",
         detail: true,
         suiteTitle: true,
         environmentInfo: {

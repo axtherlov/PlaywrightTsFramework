@@ -8,26 +8,21 @@ pipeline {
   }
   environment {
     TEST_CREDS = credentials('test-user')
-    PLAYWRIGHT_IMAGE = 'mcr.microsoft.com/playwright:v1.58.0-noble'
   }
   stages {
     stage('Install dependencies') {
       steps {
         bat '''
-          npm ci
+          npm install
+          npx playwright install
         '''
       }
     }
     stage('Run Playwright tests (Docker)') {
       steps {
-        bat '''
-          docker run --rm ^
-            --user root ^
-            -v "%WORKSPACE%:/tests" ^
-            -w /tests ^
+        bat '''          
             -e "TEST_USER_NAME=%TEST_CREDS_USR%" ^
-            -e "TEST_PASSWORD=%TEST_CREDS_PSW%" ^
-            %PLAYWRIGHT_IMAGE% ^
+            -e "TEST_PASSWORD=%TEST_CREDS_PSW%" ^            
             npm run demo
         '''
       }
