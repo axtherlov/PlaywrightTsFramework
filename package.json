@@ -11,13 +11,13 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test:api": "npx playwright test --config=config/test.playwright.config.ts tests/api/users.api.spec.ts",
-    "test:e2e": "npx playwright test --config=config/test.playwright.config.ts tests/e2e/nopcommerce.e2e.spec.ts --headed",
-    "demo": "npx playwright test tests/demo/mytest.spec.ts --headed",
+    "test:api": "npx playwright test --config=config/environments/test.playwright.config.ts tests/backend/users.api.spec.ts",
+    "test:e2e": "npx playwright test --config=config/environments/test.playwright.config.ts tests/e2e/nopcommerce.e2e.spec.ts --headed",
+    "demo": "npx playwright test --config=config/environments/test.playwright.config.ts tests/demo/sensitive-data.spec",
     "demotrace": "npx playwright test tests/demo/mytest.spec.ts --trace on",
     "demotag": "npx playwright test --grep @smoke --headed",
     "login": "npx playwright test tests/functional/login.spec.ts --headed",
-    "runenv": "npx playwright test --config=config/test.playwright.config.ts tests/demo/runtest-from-environment.spec.ts --headed"
+    "runenv": "npx playwright test --config=config/environments/test.playwright.config.ts tests/demo/runtest-from-environment.spec.ts --headed"
   },
   "devDependencies": {
     "@playwright/test": "^1.57.0",
