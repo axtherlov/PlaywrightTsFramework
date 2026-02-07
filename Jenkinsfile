@@ -1,10 +1,5 @@
 pipeline {
-  agent {
-    docker {
-      image 'mcr.microsoft.com/playwright:v1.57.0-jammy'
-      args '-v /var/run/docker.sock:/var/run/docker.sock'
-    }
-  }
+  agent any
   tools { 
     nodejs 'nodeLTS_24130' // Jenkins > Global Tool Config: NodeJS named "nodeLTS_24130"
      allure 'allure' // Jenkins > Global Tool Config: Allure named "allure"
@@ -20,6 +15,8 @@ pipeline {
       steps {
         sh '''
           set -eu 
+          apt-get update
+          apt-get install -y libglib2.0-0 libnss3 libatk1.0-0 libx11-xcb1 libxcomposite1 libxrandr2 libasound2 libatk-bridge2.0-0 libcups2 libgtk-3-0 fonts-liberation libgbm1 libpango-1.0-0 libpangocairo-1.0-0 libxdamage1 libxext6 libxfixes3
           npm ci
           npx playwright install
         '''
