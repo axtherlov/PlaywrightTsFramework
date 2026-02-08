@@ -1,6 +1,6 @@
 import { expect, type Page } from "@playwright/test";
 import BasePage from "./base.page.js";
-import { log } from "../../../core/helpers/logger.js";
+import { log } from "../../core/helpers/logger.js";
 
 export default class HomePage extends BasePage {
     // Constructor

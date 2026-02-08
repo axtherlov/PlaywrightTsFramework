@@ -1,0 +1,16 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run create.customer.spec.ts in headed mode",
+			"type": "shell",
+			"command": "npx playwright test tests/create.customer.spec.ts --headed",
+			"args": [],
+			"isBackground": false,
+			"problemMatcher": [
+				"$tsc"
+			],
+			"group": "test"
+		}
+	]
+}

@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { log } from "../../src/core/helpers/logger.js";
-import HomePage from "../../src/ui/components/page-objects/nopcommerce.home.page";
+import HomePage from "../../src/ui/page-objects/nopcommerce.home.page";
 import constants from "../../data/constants.json";
 
 test.describe("E2E Customer Search", () => {
