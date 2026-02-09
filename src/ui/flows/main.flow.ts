@@ -1,4 +1,5 @@
 import { Page } from "@playwright/test";
+import { envConfig } from "../../global/environment-config";
 
 export class MainFlow {
     page: Page;
@@ -7,7 +8,7 @@ export class MainFlow {
         this.page = page;
     }
 
-    async navigateToHomePage(url: string) {
-        await this.page.goto("http://localhost");
+    async navigateToHomePage() {
+        await this.page.goto(envConfig.baseUrl);
     }
 }
