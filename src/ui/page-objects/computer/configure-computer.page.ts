@@ -1,5 +1,8 @@
 import { Page } from "@playwright/test";
 import { Computer } from "../../model/computer";
+import { HddEnum } from '../../enums/hdd-enum';
+import { OSEnum } from "../../enums/os-enum";
+import { softwareEnum } from '../../enums/software-enum';
 
 export class ConfigureComputerPage {
   page: Page;
@@ -8,30 +11,31 @@ export class ConfigureComputerPage {
   }
 
   get processorDropdown() {
-    return this.page.locator("select[id*='processor'], select[name*='processor'], [aria-label*='processor']").first();
+    return this.page.getByLabel('Processor');
   }
 
   get ramDropdown() {
-    return this.page.locator("select[id*='ram'], select[name*='ram'], select[id*='memory'], [aria-label*='ram']").first();
+    return this.page.getByLabel('RAM');   
   }
 
-  get hddDropdown() {
-    return this.page.locator("select[id*='hdd'], select[name*='hdd'], select[id*='storage'], [aria-label*='hdd']").first();
+  hddRadio(HddEnum: HddEnum) {
+    return this.page.getByText(HddEnum.toString());
   }
 
-  get osDropdown() {
-    return this.page.locator("select[id*='os'], select[name*='os'], [aria-label*='operating system']").first();
+  osRadio(os: OSEnum) {    
+    return this.page.getByText(os.toString());
   }
 
-  get softwareDropdown() {
-    return this.page.locator("select[id*='software'], select[name*='software'], [aria-label*='software']").first();
+  softwareRadio(software: softwareEnum) {
+    return this.page.getByText(software.toString());
+    
   }
 
   async ConfigureComputerOptions(computer: Computer) {
     await this.processorDropdown.selectOption({ index: Number(computer.processor) });      
     await this.ramDropdown.selectOption({ index: Number(computer.ram) });      
-    await this.hddDropdown.selectOption({ index: Number(computer.hdd) });      
-    await this.osDropdown.selectOption({ index: Number(computer.os) });      
-    await this.softwareDropdown.selectOption({ index: Number(computer.software) });     
+    await this.hddRadio(computer.hdd).click();
+    await this.osRadio(computer.os).click();      
+    await this.softwareRadio(computer.software).click();     
    }
 }

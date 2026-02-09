@@ -10,12 +10,14 @@ import { HddEnum } from "../../src/ui/enums/hdd-enum";
 import { OSEnum } from "../../src/ui/enums/os-enum";
 import { ShippingMethodEnum } from "../../src/ui/enums/shipping-method-enum";
 import { PaymentMethodEnum } from "../../src/ui/enums/payment-method-enum";
+import { CountryEnum } from "../../src/ui/enums/country-enum";
+import { StateEnum } from '../../src/ui/enums/state-enum';
 
 let mainFlow: MainFlow;
 
 test.beforeEach(async ({ page }) => {
     mainFlow = new MainFlow(page);
-    await mainFlow.navigateToHomePage();
+    await mainFlow.navigateToHomePage("http://localhost");
 });
 
 test.describe("Purchase Computer Flow", () => {
@@ -31,7 +33,7 @@ test.describe("Purchase Computer Flow", () => {
 
         await productsMenu.navigate(MenuItemsEnum.DESKTOPS);        
         await productListPage.GoToBuildCustomComputer();
-   
+ 
         await configureComputerPage.ConfigureComputerOptions({
             processor: ProcessorEnum.PENTIUM_OP1,
             ram: RamEnum.EIGHT,
@@ -41,15 +43,7 @@ test.describe("Purchase Computer Flow", () => {
         });
 
         await productDetailsPage.SetProductQuantity(1);
-        await productDetailsPage.AddToCart();
-
-        await log("info", "Checking for 'Save' button");
-        const saveButton = page.locator("button:has-text('Save')");
-        if (await saveButton.isVisible({ timeout: 2000 }).catch(() => false)) {
-            await saveButton.click();
-            await log("info", "Clicked 'Save' button");
-        }
-        
+        await productDetailsPage.AddToCart();        
         await mainMenu.openShoppingCart();
         
         expect(await shoppingCartPage.isProductInTheList(
@@ -63,8 +57,8 @@ test.describe("Purchase Computer Flow", () => {
             lastName: "Doe",
             email: "john.doe@example.com",
             phone: "1234567890",
-            countryIndex: 1,
-            stateIndex: 1,
+            country: CountryEnum.USA,
+            state: StateEnum.NEW_YORK,
             city: "New York",
             address: "123 Main St",
             zip: "10001"

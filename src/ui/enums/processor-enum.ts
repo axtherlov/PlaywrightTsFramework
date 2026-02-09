@@ -1,4 +1,4 @@
 export enum ProcessorEnum {
-    PENTIUM_OP1 = 0,
-    PENTIUM_OP2 = 1
+    PENTIUM_OP1 = 1,
+    PENTIUM_OP2 = 2
 }

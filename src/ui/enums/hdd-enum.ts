@@ -1,4 +1,4 @@
 export enum HddEnum {
-    BASIC = 0,
-    ADVANCED = 1
+    BASIC = '320 GB',
+    ADVANCED = '400 GB [+$100.00]'
 }

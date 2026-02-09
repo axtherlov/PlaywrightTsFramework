@@ -11,39 +11,40 @@ export class Checkout {
     }
 
     get firstNameInput() {
-        return this.page.locator("input[id*='BillingAddress_FirstName'], input[name*='FirstName']").first();
+        return this.page.getByRole('textbox', { name: 'First name:' });
     }
 
     get lastNameInput() {
-        return this.page.locator("input[id*='BillingAddress_LastName'], input[name*='LastName']").first();
+        return this.page.getByRole('textbox', { name: 'Last name:' });
     }
 
     get emailInput() {
-        return this.page.locator("input[id*='BillingAddress_Email'], input[type='email']").first();
+        return this.page.getByRole('textbox', { name: 'Email:' });
     }
 
     get phoneInput() {
-        return this.page.locator("input[id*='BillingAddress_PhoneNumber'], input[name*='PhoneNumber']").first();
+        return this.page.getByRole('textbox', { name: 'Phone number:' });
     }
 
     get countrySelect() {
-        return this.page.locator("select[id*='BillingAddress_CountryId'], select[name*='CountryId']").first();
+        return this.page.getByLabel('Country:');        
     }
 
     get stateSelect() {
-        return this.page.locator("select[id*='BillingAddress_StateProvinceId'], select[name*='StateProvinceId']").first();
+        return this.page.getByLabel('State / province:')        
     }
+    
 
     get cityInput() {
-        return this.page.locator("input[id*='BillingAddress_City'], input[name*='City']").first();
+        return this.page.getByRole('textbox', { name: 'City:' });
     }
 
     get addressInput() {
-        return this.page.locator("input[id*='BillingAddress_Address1'], input[name*='Address1']").first();
+        return this.page.getByRole('textbox', { name: 'Address 1:' });
     }
 
     get zipInput() {
-        return this.page.locator("input[id*='BillingAddress_ZipPostalCode'], input[name*='ZipPostalCode']").first();
+        return this.page.getByRole('textbox', { name: 'Zip / postal code:' });
     }
 
     get continueButton() {
@@ -72,8 +73,8 @@ export class Checkout {
         await this.lastNameInput.fill(info.lastName);
         await this.emailInput.fill(info.email);
         await this.phoneInput.fill(info.phone);
-        await this.countrySelect.selectOption({ index: info.countryIndex });
-        await this.stateSelect.selectOption({ index: info.stateIndex });
+        await this.countrySelect.selectOption(String(info.country));
+        await this.stateSelect.selectOption({ index: Number(info.state) });
         await this.cityInput.fill(info.city);
         await this.addressInput.fill(info.address);
         await this.zipInput.fill(info.zip);

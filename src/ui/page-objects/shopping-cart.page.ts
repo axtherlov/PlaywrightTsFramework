@@ -7,24 +7,12 @@ export class ShoppingCartPage {
     this.page = page;
   }
 
-  get agreeTermsButton() {
-    return this.page.locator([
-                "input[type='checkbox'][id*='terms']",
-                "input[id*='agreeToTerms']",
-                "input[id*='termsofservice']",
-                "input[name*='terms'], input[name*='agreeToTerms']",
-                "label:has-text('I agree') >> ../input",
-                "input[aria-label*='terms']"
-            ].join(", "));
+  get agreeTermsButton() {    
+    return this.page.getByRole('checkbox', { name: 'I agree with the terms of' })
   }
 
    get checkoutButton() {
-    return this.page.locator([
-               "button:has-text('Checkout')",
-                "a:has-text('Checkout')", 
-                "input[value*='Checkout']",
-                "button[class*='checkout']"
-            ].join(", "));
+    return this.page.getByRole('button', { name: 'Checkout' })
   }
 
   private productRow(productName: string) {

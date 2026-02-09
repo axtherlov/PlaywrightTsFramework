@@ -1,5 +1,5 @@
 export enum softwareEnum {
-    OFFICE = 0,
-    ACROBAT = 1,
-    TOTAL_COMMANDER = 2
+    OFFICE = 'Microsoft Office [+$50.00]',
+    ACROBAT = 'Acrobat Reader [+$10.00]',
+    TOTAL_COMMANDER = 'Total Commander [+$5.00]'
 }

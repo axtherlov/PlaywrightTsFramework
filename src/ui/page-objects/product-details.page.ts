@@ -8,28 +8,23 @@ export class ProductDetailsPage {
   }
 
   get quantityInput() {
-    return this.page.locator("input[id*='quantity'], input[name*='quantity']");
+    return this.page.getByRole('textbox', { name: 'Enter a quantity' });
   }
 
   get cartButton() {
-    return this.page.locator("button:has-text('Add to cart')").last();
+    return this.page.getByRole('button', { name: 'Add to cart' });
   }
 
   get productAddedToCartMessage() {
-    return this.page.locator([
-            "text=The product has been added to your shopping cart",
-            "text=/.*added to.*cart.*/i",
-            ".notification, .alert-success, [class*='success-notification']",
-            ".bar-notification"
-        ].join(", "));
+    return this.page.getByText('The product has been added to');
   }
 
   get closeMessageButton() {
-    return this.page.locator("button[aria-label='Close'], .notification-close, [class*='close'], .close-notification");
+    return this.page.getByTitle('Close');
   }
 
   async SetProductQuantity(quantity: number) {
-    await this.quantityInput.clear();
+    await this.quantityInput.click();
     await this.quantityInput.fill(quantity.toString());
   }
 

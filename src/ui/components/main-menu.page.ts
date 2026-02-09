@@ -7,7 +7,7 @@ export class MainMenu {
     }
 
     get shoppingCartButton() {
-        return this.page.locator("a:has-text('Shopping cart'), [aria-label*='Shopping cart']").first();
+        return this.page.locator("#topcartlink");
     }
 
     async openShoppingCart() {        
