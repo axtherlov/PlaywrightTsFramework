@@ -17,7 +17,7 @@ let mainFlow: MainFlow;
 
 test.beforeEach(async ({ page }) => {
     mainFlow = new MainFlow(page);
-    await mainFlow.navigateToHomePage("http://localhost");
+    await mainFlow.navigateToHomePage();
 });
 
 test.describe("Purchase Computer Flow", () => {
@@ -47,7 +47,7 @@ test.describe("Purchase Computer Flow", () => {
         await mainMenu.openShoppingCart();
         
         expect(await shoppingCartPage.isProductInTheList(
-            "Digital Storm VANQUISH Custom Performance PC")).toBe(true);
+            "COMP_CUST")).toBe(true);
         
         await shoppingCartPage.checkout();
         await signIn.checkoutAsGuest();
