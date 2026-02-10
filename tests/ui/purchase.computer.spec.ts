@@ -58,7 +58,7 @@ test.describe("Purchase Computer Flow", () => {
             email: "john.doe@example.com",
             phone: "1234567890",
             country: CountryEnum.USA,
-            state: StateEnum.NEW_YORK,
+            state: StateEnum.ALABAMA,
             city: "New York",
             address: "123 Main St",
             zip: "10001"
@@ -68,6 +68,8 @@ test.describe("Purchase Computer Flow", () => {
         await checkout.selectShippingMethod(ShippingMethodEnum.GROUND)
         await checkout.continueButton.click();
         await checkout.selectPaymentMethod(PaymentMethodEnum.MONEY_ORDER);
+        await checkout.continueButton.click();
+        await checkout.continueButton.click();
         await checkout.confirmOrder();
         
         await expect(checkout.orderConfirmationMessage).toBeVisible();

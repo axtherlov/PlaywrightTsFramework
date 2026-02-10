@@ -1,5 +1,5 @@
 export enum ShippingMethodEnum {
-    GROUND = "shippingOption",
-    NEXT_DAY_AIR = "ShippingMethod",
-    SECOND_DAY_AIR = "ShippingRateComputationMethod"
+    GROUND = 0,
+    NEXT_DAY_AIR = 1,
+    SECOND_DAY_AIR = 2
 }

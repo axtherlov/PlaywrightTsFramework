@@ -31,7 +31,7 @@ export class Checkout {
     }
 
     get stateSelect() {
-        return this.page.getByLabel('State / province:')        
+        return this.page.getByLabel('State / province:');        
     }
     
 
@@ -48,7 +48,7 @@ export class Checkout {
     }
 
     get continueButton() {
-        return this.page.locator("button:has-text('Continue')").first();
+        return this.page.getByRole('button', { name: 'Continue' }).first();
     }
 
     get confirmButton() {
@@ -60,11 +60,11 @@ export class Checkout {
     }
 
     shippingOptionRadio(shippingMethod: ShippingMethodEnum) {
-        return this.page.locator(`input[type='radio'][name*='${shippingMethod}']`).first();
+        return this.page.locator(`input[id='shippingoption_${shippingMethod}']`);
     }
 
     paymentMethodRadio(paymentMethod: PaymentMethodEnum) {
-        return this.page.locator(`input[type='radio'][name*='${paymentMethod}'], input[name*='${paymentMethod}']`).first();
+        return this.page.locator(`input[id='paymentmethod_${paymentMethod}']`);
     }
 
 
@@ -73,7 +73,8 @@ export class Checkout {
         await this.lastNameInput.fill(info.lastName);
         await this.emailInput.fill(info.email);
         await this.phoneInput.fill(info.phone);
-        await this.countrySelect.selectOption(String(info.country));
+        await this.countrySelect.selectOption({ index: Number(info.country) });
+        await this.stateSelect.click();
         await this.stateSelect.selectOption({ index: Number(info.state) });
         await this.cityInput.fill(info.city);
         await this.addressInput.fill(info.address);
@@ -81,11 +82,11 @@ export class Checkout {
     }
    
     async selectShippingMethod(method: ShippingMethodEnum) {
-        await this.shippingOptionRadio(method).check();
+        await this.shippingOptionRadio(Number(method)).check();
     }
 
     async selectPaymentMethod(method: PaymentMethodEnum) {
-        await this.paymentMethodRadio(method).check();
+        await this.paymentMethodRadio(Number(method)).check();
     }
 
     async confirmOrder() {

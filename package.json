@@ -11,7 +11,7 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test1": "npx playwright test --config=config/environments/test.playwright.config.ts tests/ui/purchase.computer.spec.ts",
+    "test1": "npx playwright test --headed --config=config/environments/test.playwright.config.ts tests/ui/purchase.computer.spec.ts",
     "test:api": "npx playwright test --config=config/environments/test.playwright.config.ts tests/backend/users.api.spec.ts",
     "test:e2e": "npx playwright test --config=config/environments/test.playwright.config.ts tests/e2e/nopcommerce.e2e.spec.ts --headed",
     "demo": "npx playwright test --config=config/environments/test.playwright.config.ts tests/demo/sensitive-data.spec",
