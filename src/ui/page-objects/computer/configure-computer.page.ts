@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import test, { Page } from "@playwright/test";
 import { Computer } from "../../model/computer";
 import { HddEnum } from "../../enums/hdd-enum";
 import { OSEnum } from "../../enums/os-enum";
@@ -30,13 +30,17 @@ export class ConfigureComputerPage {
         return this.page.getByText(software.toString());
     }
 
-    async ConfigureComputerOptions(computer: Computer) {
-        await this.processorDropdown.selectOption({
-            index: Number(computer.processor),
+    async configureComputerOptions(computer: Computer) {
+        await test.step(`Step: ${this.configureComputerOptions.name}`, async () => {
+            await this.processorDropdown.selectOption({
+                index: Number(computer.processor),
+            });
+            await this.ramDropdown.selectOption({
+                index: Number(computer.ram),
+            });
+            await this.hddRadio(computer.hdd).click();
+            await this.osRadio(computer.os).click();
+            await this.softwareRadio(computer.software).click();
         });
-        await this.ramDropdown.selectOption({ index: Number(computer.ram) });
-        await this.hddRadio(computer.hdd).click();
-        await this.osRadio(computer.os).click();
-        await this.softwareRadio(computer.software).click();
     }
 }

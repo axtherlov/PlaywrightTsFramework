@@ -13,7 +13,10 @@ export default async function globalSetup(config: FullConfig) {
     const page = await context.newPage();
 
     if (process.env.RUNNER?.toUpperCase() === "LOCAL") {
-        const resultsDir = path.resolve(process.cwd(), "allure-results");
+        const resultsDir = path.resolve(
+            process.cwd(),
+            "reports/allure-results",
+        );
 
         if (fs.existsSync(resultsDir)) {
             fs.rmSync(resultsDir, { recursive: true, force: true });

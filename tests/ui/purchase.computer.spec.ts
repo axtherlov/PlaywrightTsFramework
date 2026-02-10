@@ -31,9 +31,9 @@ test.describe("Purchase Computer Flow", () => {
         checkout,
     }, testInfo) => {
         await productsMenu.navigate(MenuItemsEnum.DESKTOPS);
-        await productListPage.GoToBuildCustomComputer();
+        await productListPage.goToBuildCustomComputer();
 
-        await configureComputerPage.ConfigureComputerOptions({
+        await configureComputerPage.configureComputerOptions({
             processor: ProcessorEnum.PENTIUM_OP1,
             ram: RamEnum.EIGHT,
             hdd: HddEnum.ADVANCED,
@@ -41,13 +41,14 @@ test.describe("Purchase Computer Flow", () => {
             software: softwareEnum.OFFICE,
         });
 
-        await productDetailsPage.SetProductQuantity(1);
-        await productDetailsPage.AddToCart();
+        await productDetailsPage.setProductQuantity(1);
+        await productDetailsPage.addToCart();
         await mainMenu.openShoppingCart();
 
-        expect(await shoppingCartPage.isProductInTheList("COMP_CUST")).toBe(
-            true,
-        );
+        expect(
+            await shoppingCartPage.isProductInTheList("COMP_CUST"),
+            "Expect: Product should be present in the shopping cart",
+        ).toBe(true);
 
         await shoppingCartPage.checkout();
         await signIn.checkoutAsGuest();
@@ -68,6 +69,9 @@ test.describe("Purchase Computer Flow", () => {
         await checkout.selectPaymentMethod(PaymentMethodEnum.MONEY_ORDER);
         await checkout.confirmOrder();
 
-        await expect(checkout.orderConfirmationMessage).toBeVisible();
+        await expect(
+            checkout.orderConfirmationMessage,
+            "Expect: Confirmation message should be visible after order is processed",
+        ).toBeVisible();
     });
 });

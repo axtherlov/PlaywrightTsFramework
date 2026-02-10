@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import test, { Page } from "@playwright/test";
 
 export class ProductListPage {
     page: Page;
@@ -11,7 +11,7 @@ export class ProductListPage {
         return this.page.locator(".item-grid .item-box");
     }
 
-    async AddRandomProductToCart() {
+    async addRandomProductToCart() {
         const count = await this.productList.count();
         if (count === 0) {
             throw new Error("No products found in product list");
@@ -23,10 +23,12 @@ export class ProductListPage {
             .click();
     }
 
-    async GoToBuildCustomComputer() {
-        await this.page
-            .getByRole("article")
-            .filter({ hasText: "Build your own computer Build" })
-            .click();
+    async goToBuildCustomComputer() {
+        await test.step(`Step: ${this.goToBuildCustomComputer.name}`, async () => {
+            await this.page
+                .getByRole("article")
+                .filter({ hasText: "Build your own computer Build" })
+                .click();
+        });
     }
 }

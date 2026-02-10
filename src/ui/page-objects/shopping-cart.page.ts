@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import test, { Page } from "@playwright/test";
 
 export class ShoppingCartPage {
     page: Page;
@@ -24,14 +24,13 @@ export class ShoppingCartPage {
     async isProductInTheList(productName: string) {
         const cells = this.productRow(productName).locator("td");
         const count = await cells.count();
-        if (count === 0) {
-            return false;
-        }
-        return true;
+        return count > 0;
     }
 
     async checkout() {
-        await this.agreeTermsButton.click();
-        await this.checkoutButton.click();
+        await test.step(`Step: ${this.checkout.name}`, async () => {
+            await this.agreeTermsButton.click();
+            await this.checkoutButton.click();
+        });
     }
 }

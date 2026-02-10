@@ -8,7 +8,7 @@ import { ShoppingCartPage } from "../page-objects/shopping-cart.page";
 import { SignIn } from "../page-objects/sign-in.page";
 import { Checkout } from "../page-objects/checkout.page";
 
-type pages = {
+type Pages = {
     signIn: SignIn;
     mainMenu: MainMenu;
     productsMenu: ProductsMenu;
@@ -19,7 +19,7 @@ type pages = {
     checkout: Checkout;
 };
 
-const pageFactory = customTest.extend<pages>({
+const pageFactory = customTest.extend<Pages>({
     signIn: async ({ page }, use) => {
         await use(new SignIn(page));
     },

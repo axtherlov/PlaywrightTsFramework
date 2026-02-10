@@ -5,7 +5,7 @@ export default async function globalTeardown(config: FullConfig) {
     console.log(">> Global teardown running...");
     if (process.env.RUNNER?.toUpperCase() === "LOCAL") {
         console.log(">> Local run detected - starting allure report");
-        exec("allure serve", (error, stdout, stderr) => {
+        exec("allure serve reports/allure-results", (error, stdout, stderr) => {
             if (error) {
                 console.error(`Error starting allure report: ${error.message}`);
             }

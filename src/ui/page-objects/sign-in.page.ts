@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import test, { Page } from "@playwright/test";
 
 export class SignIn {
     page: Page;
@@ -12,6 +12,8 @@ export class SignIn {
     }
 
     async checkoutAsGuest() {
-        await this.checkoutAsGuestButton.click();
+        await test.step(`Step: ${this.checkoutAsGuest.name}`, async () => {
+            await this.checkoutAsGuestButton.click();
+        });
     }
 }

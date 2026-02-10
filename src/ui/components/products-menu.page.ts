@@ -2,7 +2,7 @@ import test, { expect, type Page } from "@playwright/test";
 import BasePage from "../page-objects/base.page.js";
 import { log } from "../../core/helpers/logger.js";
 import { MenuItemsEnum } from "../enums/menu-items.js";
-import { envConfig } from "../../global/environment-config.js";
+import { envConfig } from "../../config/environment-config.js";
 
 export default class ProductsMenu extends BasePage {
     // Constructor
@@ -32,8 +32,8 @@ export default class ProductsMenu extends BasePage {
     }
 
     async navigate(item: MenuItemsEnum) {
-        await test.step(`Navigate to ${item} page`, async () => {
-            this.page.goto(`${envConfig.baseUrl}/${item}`);
+        await test.step(`Step: navigate to ${item} page`, async () => {
+            await this.page.goto(`${envConfig.baseUrl}/${item}`);
             await expect(this.page).toHaveURL(new RegExp(`.*${item}`));
         });
     }

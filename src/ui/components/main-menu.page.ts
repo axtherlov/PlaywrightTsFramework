@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import test, { Page } from "@playwright/test";
 
 export class MainMenu {
     page: Page;
@@ -11,6 +11,8 @@ export class MainMenu {
     }
 
     async openShoppingCart() {
-        await this.shoppingCartButton.click();
+        await test.step(`Step: ${this.openShoppingCart.name}`, async () => {
+            await this.shoppingCartButton.click();
+        });
     }
 }

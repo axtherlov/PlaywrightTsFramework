@@ -1,5 +1,5 @@
-import { Page } from "@playwright/test";
-import { envConfig } from "../../global/environment-config";
+import test, { Page } from "@playwright/test";
+import { envConfig } from "../../config/environment-config";
 
 export class MainFlow {
     page: Page;
@@ -9,6 +9,8 @@ export class MainFlow {
     }
 
     async navigateToHomePage() {
-        await this.page.goto(envConfig.baseUrl);
+        await test.step(`Step: ${this.navigateToHomePage.name}`, async () => {
+            await this.page.goto(envConfig.baseUrl);
+        });
     }
 }
