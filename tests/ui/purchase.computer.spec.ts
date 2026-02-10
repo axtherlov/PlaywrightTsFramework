@@ -64,12 +64,8 @@ test.describe("Purchase Computer Flow", () => {
             zip: "10001"
         });
 
-        await checkout.continueButton.click();
-        await checkout.selectShippingMethod(ShippingMethodEnum.GROUND)
-        await checkout.continueButton.click();
-        await checkout.selectPaymentMethod(PaymentMethodEnum.MONEY_ORDER);
-        await checkout.continueButton.click();
-        await checkout.continueButton.click();
+        await checkout.selectShippingMethod(ShippingMethodEnum.GROUND);
+        await checkout.selectPaymentMethod(PaymentMethodEnum.MONEY_ORDER);      
         await checkout.confirmOrder();
         
         await expect(checkout.orderConfirmationMessage).toBeVisible();
