@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import { Page } from "@playwright/test";
 
 export class SignIn {
     page: Page;
@@ -8,7 +8,7 @@ export class SignIn {
     }
 
     get checkoutAsGuestButton() {
-        return this.page.getByRole('button', { name: 'Checkout as Guest' })
+        return this.page.getByRole("button", { name: "Checkout as Guest" });
     }
 
     async checkoutAsGuest() {

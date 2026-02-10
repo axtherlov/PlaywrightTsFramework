@@ -14,11 +14,14 @@ test.describe("REST API Demo", () => {
     test("Should get list of users", async ({ request }) => {
         // Make a GET call
         await log("info", `Making a GET call using ${envConfig.apiURL}`);
-        const res = await request.get(`${envConfig.apiURL}${constants.REQ_RES_ENDPOINTS.GET_USERS_LIST}`, {
-            headers: {
-                "x-api-key": process.env.RES_RES_API_KEY,
+        const res = await request.get(
+            `${envConfig.apiURL}${constants.REQ_RES_ENDPOINTS.GET_USERS_LIST}`,
+            {
+                headers: {
+                    "x-api-key": process.env.RES_RES_API_KEY,
+                },
             },
-        });
+        );
 
         // Assert the status code
         expect(res.status()).toBe(200);
@@ -29,7 +32,10 @@ test.describe("REST API Demo", () => {
         log("info", `List of users: ${JSON.stringify(userData)}`);
 
         // Write the list of users
-        fileHelper.writeFile(`${process.cwd()}/data/api-res/list-of-users.json`, `${JSON.stringify(userData, undefined, 4)}`);
+        fileHelper.writeFile(
+            `${process.cwd()}/data/api-res/list-of-users.json`,
+            `${JSON.stringify(userData, undefined, 4)}`,
+        );
     });
 
     //POST Method
@@ -38,13 +44,16 @@ test.describe("REST API Demo", () => {
         await log("info", `Making a POST call using ${envConfig.apiURL}`);
         const payload = TestData.apiUserCreation()[0];
 
-        const res = await request.post(`${envConfig.apiURL}${constants.REQ_RES_ENDPOINTS.POST_USER}`, {
-            headers: {
-                "x-api-key": process.env.RES_RES_API_KEY,
-                "Content-Type": "application/json",
+        const res = await request.post(
+            `${envConfig.apiURL}${constants.REQ_RES_ENDPOINTS.POST_USER}`,
+            {
+                headers: {
+                    "x-api-key": process.env.RES_RES_API_KEY,
+                    "Content-Type": "application/json",
+                },
+                data: payload,
             },
-            data: payload,
-        });
+        );
 
         // Assert the status code
         expect(res.status()).toBe(201);
@@ -52,7 +61,10 @@ test.describe("REST API Demo", () => {
 
         // Get list of users
         const restData = await res.json();
-        log("info", `Response data from post call: ${JSON.stringify(restData)}`);
+        log(
+            "info",
+            `Response data from post call: ${JSON.stringify(restData)}`,
+        );
     });
 });
 

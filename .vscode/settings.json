@@ -3,5 +3,6 @@
     "chat.tools.terminal.autoApprove": {
         "npx playwright": true,
         "npx allure": true
-    }
+    },
+    "editor.formatOnSave": true
 }

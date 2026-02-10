@@ -3,7 +3,7 @@ import { envConfig } from "../../global/environment-config";
 
 export class MainFlow {
     page: Page;
- 
+
     constructor(page: Page) {
         this.page = page;
     }

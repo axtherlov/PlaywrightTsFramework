@@ -1,8 +1,7 @@
 import { expect } from "@playwright/test";
-import { test } from '../../src/ui/fixtures/pom-fixture';
-import { log } from "../../src/core/helpers/logger.js";
+import { test } from "../../src/ui/fixtures/pom-fixture";
 import { MenuItemsEnum } from "../../src/ui/enums/menu-items.js";
-import { MainFlow } from '../../src/ui/flows/main.flow';
+import { MainFlow } from "../../src/ui/flows/main.flow";
 import { softwareEnum } from "../../src/ui/enums/software-enum";
 import { ProcessorEnum } from "../../src/ui/enums/processor-enum";
 import { RamEnum } from "../../src/ui/enums/ram-enum";
@@ -11,7 +10,7 @@ import { OSEnum } from "../../src/ui/enums/os-enum";
 import { ShippingMethodEnum } from "../../src/ui/enums/shipping-method-enum";
 import { PaymentMethodEnum } from "../../src/ui/enums/payment-method-enum";
 import { CountryEnum } from "../../src/ui/enums/country-enum";
-import { StateEnum } from '../../src/ui/enums/state-enum';
+import { StateEnum } from "../../src/ui/enums/state-enum";
 
 let mainFlow: MainFlow;
 
@@ -21,7 +20,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe("Purchase Computer Flow", () => {
-    test("purchase computer with guest user", async ({ page, 
+    test("purchase computer with guest user", async ({
         signIn,
         mainMenu,
         productsMenu,
@@ -29,29 +28,30 @@ test.describe("Purchase Computer Flow", () => {
         productDetailsPage,
         configureComputerPage,
         shoppingCartPage,
-        checkout }, testInfo) => {      
-
-        await productsMenu.navigate(MenuItemsEnum.DESKTOPS);        
+        checkout,
+    }, testInfo) => {
+        await productsMenu.navigate(MenuItemsEnum.DESKTOPS);
         await productListPage.GoToBuildCustomComputer();
- 
+
         await configureComputerPage.ConfigureComputerOptions({
             processor: ProcessorEnum.PENTIUM_OP1,
             ram: RamEnum.EIGHT,
             hdd: HddEnum.ADVANCED,
             os: OSEnum.VISTA_PREMIUM,
-            software: softwareEnum.OFFICE
+            software: softwareEnum.OFFICE,
         });
 
         await productDetailsPage.SetProductQuantity(1);
-        await productDetailsPage.AddToCart();        
+        await productDetailsPage.AddToCart();
         await mainMenu.openShoppingCart();
-        
-        expect(await shoppingCartPage.isProductInTheList(
-            "COMP_CUST")).toBe(true);
-        
+
+        expect(await shoppingCartPage.isProductInTheList("COMP_CUST")).toBe(
+            true,
+        );
+
         await shoppingCartPage.checkout();
         await signIn.checkoutAsGuest();
-       
+
         await checkout.fillBillingAddress({
             firstName: "John",
             lastName: "Doe",
@@ -61,13 +61,13 @@ test.describe("Purchase Computer Flow", () => {
             state: StateEnum.ALABAMA,
             city: "New York",
             address: "123 Main St",
-            zip: "10001"
+            zip: "10001",
         });
 
         await checkout.selectShippingMethod(ShippingMethodEnum.GROUND);
-        await checkout.selectPaymentMethod(PaymentMethodEnum.MONEY_ORDER);      
+        await checkout.selectPaymentMethod(PaymentMethodEnum.MONEY_ORDER);
         await checkout.confirmOrder();
-        
+
         await expect(checkout.orderConfirmationMessage).toBeVisible();
     });
 });

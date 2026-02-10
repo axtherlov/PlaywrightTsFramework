@@ -4,18 +4,24 @@ import HomePage from "../../src/ui/page-objects/nopcommerce.home.page";
 import constants from "../../data/constants.json";
 
 test.describe("E2E Customer Search", () => {
-    test("E2E_TC001: Search the external customers in customer portal", async ({ page, request }, testInfo) => {
+    test("E2E_TC001: Search the external customers in customer portal", async ({
+        page,
+        request,
+    }, testInfo) => {
         // Env Config
         const envConfig = testInfo.project.use as any;
 
         /**1. Get list of users */
         // Make a GET call
         await log("info", `Making a GET call using ${envConfig.apiURL}`);
-        const res = await request.get(`${envConfig.apiURL}${constants.REQ_RES_ENDPOINTS.GET_USERS_LIST}`, {
-            headers: {
-                "x-api-key": process.env.RES_RES_API_KEY,
+        const res = await request.get(
+            `${envConfig.apiURL}${constants.REQ_RES_ENDPOINTS.GET_USERS_LIST}`,
+            {
+                headers: {
+                    "x-api-key": process.env.RES_RES_API_KEY,
+                },
             },
-        });
+        );
 
         // Assert the status code
         expect(res.status()).toBe(200);
@@ -30,7 +36,7 @@ test.describe("E2E Customer Search", () => {
         await homePage.loginToNopeCommerceApp(
             envConfig.nopCommerceWeb,
             process.env.NOP_COMMERCE_TEST_USERNAME,
-            process.env.NOP_COMMERCE_TEST_PASSWORD
+            process.env.NOP_COMMERCE_TEST_PASSWORD,
         );
 
         // /** 3. Customer search */

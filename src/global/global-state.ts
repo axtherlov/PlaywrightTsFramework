@@ -1,4 +1,4 @@
-import { Browser } from '@playwright/test';
+import { Browser } from "@playwright/test";
 export const globalState: { browser: Browser | undefined } = {
-  browser: undefined,
+    browser: undefined,
 };

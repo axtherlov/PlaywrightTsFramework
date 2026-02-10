@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import { Page } from "@playwright/test";
 
 export class MainMenu {
     page: Page;
@@ -10,7 +10,7 @@ export class MainMenu {
         return this.page.locator("#topcartlink");
     }
 
-    async openShoppingCart() {        
-        await this.shoppingCartButton.click();        
+    async openShoppingCart() {
+        await this.shoppingCartButton.click();
     }
 }

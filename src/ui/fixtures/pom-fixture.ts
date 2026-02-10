@@ -1,12 +1,12 @@
-import { test as customTest } from '@playwright/test';
-import ProductsMenu from '../components/products-menu.page';
+import { test as customTest } from "@playwright/test";
+import ProductsMenu from "../components/products-menu.page";
 import { ProductListPage } from "../page-objects/product-list.page";
-import { ConfigureComputerPage } from '../page-objects/computer/configure-computer.page';
-import { ProductDetailsPage } from '../page-objects/product-details.page';
-import { MainMenu } from '../components/main-menu.page';
-import { ShoppingCartPage } from '../page-objects/shopping-cart.page';
-import { SignIn } from '../page-objects/sign-in.page';
-import { Checkout } from '../page-objects/checkout.page';
+import { ConfigureComputerPage } from "../page-objects/computer/configure-computer.page";
+import { ProductDetailsPage } from "../page-objects/product-details.page";
+import { MainMenu } from "../components/main-menu.page";
+import { ShoppingCartPage } from "../page-objects/shopping-cart.page";
+import { SignIn } from "../page-objects/sign-in.page";
+import { Checkout } from "../page-objects/checkout.page";
 
 type pages = {
     signIn: SignIn;
@@ -17,7 +17,7 @@ type pages = {
     productDetailsPage: ProductDetailsPage;
     shoppingCartPage: ShoppingCartPage;
     checkout: Checkout;
-}
+};
 
 const pageFactory = customTest.extend<pages>({
     signIn: async ({ page }, use) => {
@@ -43,7 +43,7 @@ const pageFactory = customTest.extend<pages>({
     },
     checkout: async ({ page }, use) => {
         await use(new Checkout(page));
-    }
+    },
 });
 
 export const test = pageFactory;

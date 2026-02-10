@@ -1,5 +1,5 @@
-import { CountryEnum } from '../enums/country-enum';
-import { StateEnum } from '../enums/state-enum';
+import { CountryEnum } from "../enums/country-enum";
+import { StateEnum } from "../enums/state-enum";
 
 export interface BillingInfo {
     firstName: string;
