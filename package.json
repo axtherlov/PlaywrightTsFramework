@@ -12,9 +12,9 @@
     "main": "index.js",
     "scripts": {
         "test1": "npx playwright test --headed --config=playwright.config.ts tests/ui/purchase.computer.spec.ts",
-        "test:api": "npx playwright test --config=playwright.config.ts tests/backend/users.api.spec.ts",
+        "test:api": "npx playwright test tests/backend/products.api.spec.ts",
         "test:e2e": "npx playwright test --config=playwright.config.ts tests/e2e/nopcommerce.e2e.spec.ts --headed",
-        "demo": "npx playwright test --config=playwright.config.ts tests/demo/sensitive-data.spec",
+        "demo": "npx playwright test tests/demo/sensitive-data.spec",
         "demotrace": "npx playwright test tests/demo/mytest.spec.ts --trace on",
         "demotag": "npx playwright test --grep @smoke --headed",
         "login": "npx playwright test tests/functional/login.spec.ts --headed",
