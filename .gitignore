@@ -13,3 +13,13 @@ node_modules/
 /allure-results
 example.*
 *.log
+
+# .NET SUT
+/SUT/.vs/
+/SUT/**/bin/
+/SUT/**/obj/
+/SUT/**/TestResults/
+/SUT/**/*.user
+/SUT/**/*.suo
+/SUT/**/*.userosscache
+/SUT/**/*.sln.docstates

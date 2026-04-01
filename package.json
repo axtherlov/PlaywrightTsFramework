@@ -11,6 +11,7 @@
     "type": "commonjs",
     "main": "index.js",
     "scripts": {
+        "test": "npx playwright test src/tests/eaWebApp",
         "test1:ui": "npx playwright test --headed src/tests/eaWebApp/ui/*.spec.ts",
         "test2:ui": "npx playwright test --headed src/tests/nopCommerce/ui/*.spec.ts",
         "test2:api": "npx playwright test src/tests/NopCommerce/backend/products.api.spec.ts",

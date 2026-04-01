@@ -16,27 +16,30 @@ export const test = base.extend<ApiRequestMethods>({
      * @param {function} use - The use function to provide the API request function.
      */
     apiRequest: async ({ request }, use) => {
-        const apiRequestFn: ApiRequestFn = async <T = unknown>({
+        const apiRequestFn: ApiRequestFn = async <
+            TResponse = unknown,
+            TBody = unknown,
+        >({
             method,
             url,
             baseUrl,
             body = null,
             headers,
             authType,
-        }: ApiRequestParams): Promise<ApiRequestResponse<T>> => {
+        }: ApiRequestParams<TBody>): Promise<ApiRequestResponse<TResponse>> => {
             const response = await apiRequestOriginal({
                 request,
                 method,
                 url,
                 baseUrl,
-                body,
+                body: body as Record<string, unknown> | null,
                 headers,
                 authType,
             });
 
             return {
                 status: response.status,
-                body: response.body as T,
+                body: response.body as TResponse,
             };
         };
 

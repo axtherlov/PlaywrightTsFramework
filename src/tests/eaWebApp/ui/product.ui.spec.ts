@@ -5,7 +5,7 @@ test.beforeEach(async ({ homePage }) => {
     await homePage.goToHome();
 });
 
-test.describe("Product tests", () => {
+test.describe("Product UI Flow", () => {
     test("product can be created", async ({
         simpleProductDto,
         homePage,

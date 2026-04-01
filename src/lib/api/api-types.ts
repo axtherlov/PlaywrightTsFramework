@@ -1,25 +1,23 @@
 export type AuthType = "Bearer" | "Token" | "Basic";
 
-export type ApiRequestParams = {
+export type ApiRequestParams<TBody = unknown> = {
     method: "POST" | "GET" | "PUT" | "DELETE" | "PATCH";
     url: string;
     baseUrl?: string;
-    body?: Record<string, unknown> | null;
+    body?: TBody | null;
     headers?: string;
     authType?: AuthType;
 };
 
-export type ApiRequestResponse<T = unknown> = {
+export type ApiRequestResponse<TResponse = unknown> = {
     status: number;
-    body: T;
+    body: TResponse;
 };
 
-// define the function signature as a type
-export type ApiRequestFn = <T = unknown>(
-    params: ApiRequestParams,
-) => Promise<ApiRequestResponse<T>>;
+export type ApiRequestFn = <TResponse = unknown, TBody = unknown>(
+    params: ApiRequestParams<TBody>,
+) => Promise<ApiRequestResponse<TResponse>>;
 
-// grouping them all together
 export type ApiRequestMethods = {
     apiRequest: ApiRequestFn;
 };

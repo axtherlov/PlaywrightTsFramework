@@ -2,7 +2,7 @@ import invariant from "tiny-invariant";
 
 export const envConfig = {
     baseUrl: getBaseUrl(),
-    apiUrlSut2: getApiUrlSut2(),
+    apiUrl: getApiUrl(),
 };
 
 function getBaseUrl() {
@@ -11,7 +11,7 @@ function getBaseUrl() {
     return baseUrl;
 }
 
-function getApiUrlSut2() {
+function getApiUrl() {
     const apiURL = process.env["API_URL"];
     invariant(apiURL, "Cannot run tests without API_URL");
     return apiURL;
