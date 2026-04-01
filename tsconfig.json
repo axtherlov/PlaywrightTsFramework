@@ -1,12 +1,21 @@
 {
-  "compilerOptions": {
-    "target": "ESNext",
-    "module": "CommonJS",
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "strict": false,
-    "noImplicitAny": false
-  },
-  "include": ["tests/**/*.ts", "data/**/*.ts", "playwright.config.ts", "src/core/helpers/logger.ts", "src/core/helpers/file-helper.ts", "src/global/global-teardown.ts", "src/global/global-setup.ts", "src/core/helpers/pw-helper.ts", "src/global/config-fixtures.ts"],
-  "exclude": ["node_modules", "dist"]
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "CommonJS",
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "strict": false,
+        "noImplicitAny": false
+    },
+    "include": [
+        "src/tests/**/*.ts",
+        "data/**/*.ts",
+        "playwright.config.ts",
+        "src/lib/helpers/logger.ts",
+        "src/lib/helpers/file-helper.ts",
+        "src/lib/global/global-teardown.ts",
+        "src/lib/global/global-setup.ts",
+        "src/lib/helpers/pw-helper.ts"
+    ],
+    "exclude": ["node_modules", "dist"]
 }

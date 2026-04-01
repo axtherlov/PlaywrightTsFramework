@@ -10,11 +10,11 @@ dotenv.config({ path: environmentPath });
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-    testDir: "./tests",
+    testDir: "./src/tests",
     outputDir: "reports/test-results",
     globalTimeout: 3 * 60 * 1000,
-    globalSetup: require.resolve("./src/global/global-setup"),
-    globalTeardown: require.resolve("./src/global/global-teardown"),
+    globalSetup: require.resolve("./src/lib/global/global-setup"),
+    globalTeardown: require.resolve("./src/lib/global/global-teardown"),
     /* Run tests in files in parallel */
     fullyParallel: true,
     /* Fail the build on CI if you accidentally left test.only in the source code. */

@@ -11,21 +11,23 @@
     "type": "commonjs",
     "main": "index.js",
     "scripts": {
-        "test1": "npx playwright test --headed --config=playwright.config.ts tests/ui/purchase.computer.spec.ts",
-        "test:api": "npx playwright test tests/backend/products.api.spec.ts",
-        "test:e2e": "npx playwright test --config=playwright.config.ts tests/e2e/nopcommerce.e2e.spec.ts --headed",
-        "demo": "npx playwright test tests/demo/sensitive-data.spec",
-        "demotrace": "npx playwright test tests/demo/mytest.spec.ts --trace on",
-        "demotag": "npx playwright test --grep @smoke --headed",
-        "login": "npx playwright test tests/functional/login.spec.ts --headed",
-        "runenv": "npx playwright test --config=playwright.config.ts tests/demo/runtest-from-environment.spec.ts --headed"
+        "test1:ui": "npx playwright test --headed src/tests/eaWebApp/ui/*.spec.ts",
+        "test2:ui": "npx playwright test --headed src/tests/nopCommerce/ui/*.spec.ts",
+        "test2:api": "npx playwright test src/tests/NopCommerce/backend/products.api.spec.ts",
+        "lint": "eslint src/lib src/tests data playwright.config.ts",
+        "lint:fix": "eslint src/lib src/tests data playwright.config.ts --fix"
     },
     "devDependencies": {
         "@playwright/test": "^1.57.0",
         "@types/node": "^25.0.10",
+        "@typescript-eslint/eslint-plugin": "^8.58.0",
+        "@typescript-eslint/parser": "^8.58.0",
         "allure-playwright": "^3.4.5",
         "chalk": "^5.6.2",
-        "dotenv": "^17.2.3"
+        "dotenv": "^17.2.3",
+        "eslint": "^10.1.0",
+        "eslint-plugin-playwright": "^2.10.1",
+        "globals": "^17.4.0"
     },
     "dependencies": {
         "tiny-invariant": "^1.3.3"
