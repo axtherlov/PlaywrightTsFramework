@@ -3,7 +3,8 @@ import { exec } from "child_process";
 
 export default async function globalTeardown(config: FullConfig) {
     console.log(">> Global teardown running...");
-    if (process.env.RUNNER?.toUpperCase() === "LOCAL") {
+    const environment = process.env.ENVIRONMENT ?? "local";
+    if (environment?.toUpperCase() === "LOCAL") {
         console.log(">> Local run detected - starting allure report");
         exec("allure serve reports/allure-results", (error, stdout, stderr) => {
             if (error) {
