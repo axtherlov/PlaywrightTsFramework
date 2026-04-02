@@ -29,8 +29,8 @@ jobs:
               run: npm run test
             - name: Generate Allure Report
               run: |
-                  allure generate playwright-report --clean -o allure-report 
-                  allure open -h 127.0.0.1 -p 5060 allure-report &
+                  allure generate reports/allure-results --clean -o reports/allure-report 
+                  allure open -h 127.0.0.1 -p 5060 reports/allure-report &
             - uses: actions/upload-artifact@v4
               if: ${{ !cancelled() }}
               with:
@@ -40,8 +40,8 @@ jobs:
             - uses: actions/upload-artifact@v4
               if: ${{ !cancelled() }}
               with:
-                  name: allure-results
-                  path: reports/allure-results/
+                  name: allure-report
+                  path: reports/allure-report/
                   retention-days: 30
             - uses: actions/upload-artifact@v4
               if: ${{ !cancelled() }}
