@@ -1,5 +1,5 @@
-import { test } from "../../../lib/api/api-request-fixture";
-import { ProductService } from "../../../lib/api/services/nopCommerce/product.service";
+import { test } from "../../../lib/api/fixtures/api-request-fixture";
+import { ProductService } from "../../../lib/api/services/eaWebApp/product.service";
 import { expect } from "@playwright/test";
 
 test.describe("Products API flow", () => {

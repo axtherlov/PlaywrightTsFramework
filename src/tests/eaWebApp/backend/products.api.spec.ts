@@ -1,4 +1,4 @@
-import { test } from "../../../lib/api/api-request-fixture";
+import { test } from "../../../lib/api/fixtures/api-request-fixture";
 import { expect } from "@playwright/test";
 import { ProductService } from "../../../lib/api/services/eaWebApp/product.service";
 import { ProductType } from "../../../lib/ui/eaWebApp/enums/product-type.enum";
