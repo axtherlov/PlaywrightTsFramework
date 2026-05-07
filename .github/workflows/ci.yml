@@ -76,3 +76,8 @@ jobs:
                   name: test-results
                   path: reports/test-results/
                   retention-days: 30
+            - name: Add Allure report link to summary
+              if: always()
+              run: |
+                  echo "## Allure Report" >> $GITHUB_STEP_SUMMARY
+                  echo "👉 https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/" >> $GITHUB_STEP_SUMMARY
