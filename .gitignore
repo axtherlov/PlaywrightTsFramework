@@ -16,6 +16,7 @@ node_modules/
 environments/*.env
 !environments/example.env
 !environments/ci.env
+.claude/settings.json
 *.log
 
 # .NET SUT
