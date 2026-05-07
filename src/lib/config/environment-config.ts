@@ -3,6 +3,8 @@ import invariant from "tiny-invariant";
 export const envConfig = {
     baseUrl: getBaseUrl(),
     apiUrl: getApiUrl(),
+    adminEmail: getAdminEmail(),
+    adminPassword: getAdminPassword(),
 };
 
 function getBaseUrl() {
@@ -15,4 +17,18 @@ function getApiUrl() {
     const apiURL = process.env["API_URL"];
     invariant(apiURL, "Cannot run tests without API_URL");
     return apiURL;
+}
+
+/** Admin account email loaded from ADMIN_EMAIL env variable. */
+function getAdminEmail() {
+    const adminEmail = process.env["ADMIN_EMAIL"];
+    invariant(adminEmail, "Cannot run tests without ADMIN_EMAIL");
+    return adminEmail;
+}
+
+/** Admin account password loaded from ADMIN_PASSWORD env variable. */
+function getAdminPassword() {
+    const adminPassword = process.env["ADMIN_PASSWORD"];
+    invariant(adminPassword, "Cannot run tests without ADMIN_PASSWORD");
+    return adminPassword;
 }

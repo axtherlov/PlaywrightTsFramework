@@ -11,9 +11,9 @@ export class ProductDetailsPage {
         return this.page.getByRole("textbox", { name: "Enter a quantity" });
     }
 
-    /** Add to cart button on the product details page. */
+    /** Add to cart button for the main product. CSS class distinguishes it from related-product buttons on the same page. */
     get cartButton(): Locator {
-        return this.page.getByRole("button", { name: "Add to cart" });
+        return this.page.locator("button.add-to-cart-button");
     }
 
     /** Success notification shown after a product is added to the cart. */
@@ -26,7 +26,60 @@ export class ProductDetailsPage {
         return this.page.getByTitle("Close");
     }
 
+    // ==================== Locator methods ====================
+
+    /**
+     * Returns the attribute select dropdown whose label matches the given text.
+     * nopCommerce renders all attributes in a single <dl> with <dt>/<dd> pairs
+     * that are not linked via for/id, so getByLabel() cannot associate them.
+     * XPath following-sibling targets the <dd> immediately after the matching <dt>.
+     * @param {string} labelText - The visible label text (e.g. "Size", "Color").
+     * @returns {Locator}
+     */
+    private attributeSelect(labelText: string): Locator {
+        return this.page
+            .locator(`dt:has(label:text-is("${labelText}")) + dd select`);
+    }
+
     // ==================== Actions ====================
+
+    /**
+     * Selects the given size from the Size attribute dropdown.
+     * @param {string} size - The display text of the size option (e.g. "9").
+     * @returns {Promise<void>}
+     */
+    async selectShoeSize(size: string): Promise<void> {
+        await test.step(`Step: ${this.selectShoeSize.name}`, async () => {
+            await this.attributeSelect("Size").selectOption({ label: size });
+        });
+    }
+
+    /**
+     * Selects the given color from the Color attribute dropdown.
+     * @param {string} color - The display text of the color option (e.g. "White/Blue").
+     * @returns {Promise<void>}
+     */
+    async selectShoeColor(color: string): Promise<void> {
+        await test.step(`Step: ${this.selectShoeColor.name}`, async () => {
+            await this.attributeSelect("Color").selectOption({ label: color });
+        });
+    }
+
+    /**
+     * Selects the given print from the Print image-radio attribute.
+     * Print options are rendered as image squares with a tooltip-header label — not a <select>.
+     * @param {string} print - The display name of the print (e.g. "Natural", "Fresh").
+     * @returns {Promise<void>}
+     */
+    async selectShoePrint(print: string): Promise<void> {
+        await test.step(`Step: ${this.selectShoePrint.name}`, async () => {
+            await this.page
+                .locator(`dt:has(label:text-is("Print")) + dd li`)
+                .filter({ hasText: print })
+                .locator("label")
+                .click();
+        });
+    }
 
     /**
      * Sets the product quantity field to the given value.

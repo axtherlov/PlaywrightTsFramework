@@ -1,5 +1,6 @@
 import { expect } from "@playwright/test";
 import { test } from "../../../lib/ui/nopCommerce/fixtures/merge.fixture";
+import { envConfig } from "../../../lib/config/environment-config";
 import { MenuItemsEnum } from "../../../lib/ui/nopCommerce/enums/menu-items";
 import { softwareEnum } from "../../../lib/ui/nopCommerce/enums/software-enum";
 import { ProcessorEnum } from "../../../lib/ui/nopCommerce/enums/processor-enum";
@@ -10,15 +11,17 @@ import { ShippingMethodEnum } from "../../../lib/ui/nopCommerce/enums/shipping-m
 import { PaymentMethodEnum } from "../../../lib/ui/nopCommerce/enums/payment-method-enum";
 
 test.describe("Purchase Computer Flow - Registered User", () => {
-    test.beforeEach(async ({ mainFlow }) => {
+    test.beforeEach(async ({ mainFlow, loginPage, shoppingCartPage }) => {
         await mainFlow.navigateToHomePage();
+        await loginPage.goto();
+        await loginPage.login(envConfig.adminEmail, envConfig.adminPassword);
+        await shoppingCartPage.clearCart();
     });
 
     test(
         "should complete a purchase as a registered user using a saved billing address",
         { tag: "@smoke" },
         async ({
-            loginPage,
             productsMenu,
             productListPage,
             productDetailsPage,
@@ -27,9 +30,8 @@ test.describe("Purchase Computer Flow - Registered User", () => {
             shoppingCartPage,
             checkout,
         }) => {
-            await test.step("GIVEN the user is logged in as a registered customer", async () => {
-                await loginPage.goto();
-                await loginPage.login("admin@yourstore.com", "admin");
+            await test.step("GIVEN the user is logged in as a registered customer with an empty cart", async () => {
+                // login and cart cleared in beforeEach
             });
 
             await test.step("WHEN the user configures and adds a computer to the cart", async () => {

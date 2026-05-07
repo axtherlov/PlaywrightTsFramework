@@ -4,18 +4,20 @@
 
 ## Imports
 
-**ALWAYS** import `test` from the merged fixture file:
+**ALWAYS** import `test` from the merged fixture file and `expect` from `@playwright/test`:
 
 ```typescript
-import { expect, test } from "../../../lib/ui/[appName]/fixtures/merge.fixture";
+import { expect } from "@playwright/test";
+import { test } from "../../../lib/ui/[appName]/fixtures/merge.fixture";
 ```
 
-**NEVER** import from `@playwright/test` in spec files.
+**NEVER** import `test` from `@playwright/test` in spec files — it must come from the fixture so custom fixtures are available.
 
 ## Test File Structure
 
 ```typescript
-import { expect, test } from "../../../lib/ui/[appName]/fixtures/merge.fixture";
+import { expect } from "@playwright/test";
+import { test } from "../../../lib/ui/[appName]/fixtures/merge.fixture";
 
 test.describe("Feature Name", () => {
     test.beforeEach(async ({ appPage }) => {
@@ -110,6 +112,57 @@ await expect(locator).toHaveCount(3);
 // FORBIDDEN -- hard waits
 await page.waitForTimeout(1000); // NEVER use this
 ```
+
+## Test Data — Strings and Magic Values
+
+**NEVER** inline product names, SKUs, URLs, or other domain identifiers as raw strings or arrays in spec files. Define them in enums under `src/lib/ui/[appName]/enums/` and import them into the spec.
+
+```typescript
+// FORBIDDEN -- raw strings declared inside the spec file
+const PRODUCTS = ["Digital Storm VANQUISH Custom Performance PC", "Lenovo IdeaCentre"];
+const SKUS = ["DS_VA3_PC", "LE_IC_600"];
+```
+
+Define the enum in its own file under the enums directory — **not** in the spec:
+
+```typescript
+// src/lib/ui/[appName]/enums/product-enum.ts
+export enum ProductEnum {
+    DIGITAL_STORM_VANQUISH = "Digital Storm VANQUISH Custom Performance PC",
+    LENOVO_IDEACENTRE = "Lenovo IdeaCentre",
+}
+
+export enum ProductSkuEnum {
+    DIGITAL_STORM_VANQUISH = "DS_VA3_PC",
+    LENOVO_IDEACENTRE = "LE_IC_600",
+}
+```
+
+```typescript
+// CORRECT -- enum values used directly inside the test block
+import { ProductEnum, ProductSkuEnum } from "../../../lib/ui/[appName]/enums/product-enum";
+
+test(
+    "should add multiple products and complete purchase",
+    { tag: ["@smoke", "@regression"] },
+    async ({ cartFlow, shoppingCartPage }) => {
+        await test.step("WHEN the user adds products to the cart", async () => {
+            await cartFlow.addProductsToCart([
+                ProductEnum.DIGITAL_STORM_VANQUISH,
+                ProductEnum.LENOVO_IDEACENTRE,
+            ]);
+        });
+
+        await test.step("THEN all products are present in the cart", async () => {
+            for (const sku of [ProductSkuEnum.DIGITAL_STORM_VANQUISH, ProductSkuEnum.LENOVO_IDEACENTRE]) {
+                await expect(shoppingCartPage.productRow(sku)).toBeVisible();
+            }
+        });
+    },
+);
+```
+
+This applies to any value that represents a known domain constant: product names, SKUs, categories, roles, status labels, etc.
 
 ## Data-Driven Tests
 

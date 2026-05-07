@@ -1,6 +1,7 @@
 import { expect } from "@playwright/test";
 import { test } from "../../../lib/ui/nopCommerce/fixtures/merge.fixture";
 import { RegisterMessages } from "../../../lib/ui/nopCommerce/enums/register-enum";
+import { RegistrationData } from "../../../lib/ui/nopCommerce/test-data/registration.data";
 
 test.describe("Register", () => {
     test.beforeEach(async ({ registerPage }) => {
@@ -11,20 +12,12 @@ test.describe("Register", () => {
         "should register a new user successfully",
         { tag: "@smoke" },
         async ({ registerPage }) => {
-            const uniqueEmail = `testuser_${Date.now()}@example.com`;
-
             await test.step("GIVEN the user is on the register page", async () => {
                 await expect(registerPage.heading).toBeVisible();
             });
 
             await test.step("WHEN the user fills in valid registration details and submits", async () => {
-                await registerPage.register({
-                    gender: "Male",
-                    firstName: "John",
-                    lastName: "Doe",
-                    email: uniqueEmail,
-                    password: "Password123",
-                });
+                await registerPage.register(RegistrationData.build());
             });
 
             await test.step("THEN a success confirmation message is displayed", async () => {
@@ -73,13 +66,7 @@ test.describe("Register", () => {
             });
 
             await test.step("WHEN the user submits with an invalid email format", async () => {
-                await registerPage.register({
-                    gender: "Female",
-                    firstName: "Jane",
-                    lastName: "Smith",
-                    email: "not-a-valid-email",
-                    password: "Password123",
-                });
+                await registerPage.register(RegistrationData.build({ email: "not-a-valid-email" }));
             });
 
             await test.step("THEN an invalid email error is displayed", async () => {

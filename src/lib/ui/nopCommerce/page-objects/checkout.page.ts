@@ -58,14 +58,16 @@ export class Checkout {
         return this.page.getByRole("button", { name: "Continue" }).first();
     }
 
+    /** Continue button scoped to the payment information step. */
+    get paymentInfoContinueButton(): Locator {
+        return this.page
+            .locator("#checkout-step-payment-info")
+            .getByRole("button", { name: "Continue" });
+    }
+
     /** Confirm button — submits the final order. */
     get confirmButton(): Locator {
         return this.page.getByRole("button", { name: "Confirm" });
-    }
-
-    /** Payment information section shown before order confirmation. */
-    get orderSummaryDiv(): Locator {
-        return this.page.locator("#checkout-payment-info-load");
     }
 
     /** Success message displayed after the order is placed. */
@@ -169,8 +171,8 @@ export class Checkout {
      */
     async confirmOrder(): Promise<void> {
         await test.step(`Step: ${this.confirmOrder.name}`, async () => {
-            await this.orderSummaryDiv.waitFor({ state: "visible" });
-            await this.continueButton.click();
+            await this.paymentInfoContinueButton.click();
+            await this.confirmButton.waitFor({ state: "visible" });
             await this.confirmButton.click();
         });
     }

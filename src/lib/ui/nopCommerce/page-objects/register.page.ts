@@ -1,5 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 import { envConfig } from "../../../config/environment-config";
+import { RegistrationInfo } from "../model/registration-info";
 
 export class RegisterPage {
     constructor(private readonly page: Page) {}
@@ -102,25 +103,10 @@ export class RegisterPage {
 
     /**
      * Fills in and submits the registration form.
-     * @param {object} details - Registration form data.
-     * @param {'Male' | 'Female'} details.gender - Gender selection.
-     * @param {string} details.firstName - First name.
-     * @param {string} details.lastName - Last name.
-     * @param {string} details.email - Email address.
-     * @param {string} details.password - Password.
-     * @param {string} [details.companyName] - Optional company name.
-     * @param {boolean} [details.newsletter] - Whether to subscribe to newsletter (defaults to checked).
+     * @param {RegistrationInfo} details - Registration form data.
      * @returns {Promise<void>}
      */
-    async register(details: {
-        gender: "Male" | "Female";
-        firstName: string;
-        lastName: string;
-        email: string;
-        password: string;
-        companyName?: string;
-        newsletter?: boolean;
-    }): Promise<void> {
+    async register(details: RegistrationInfo): Promise<void> {
         if (details.gender === "Male") {
             await this.maleRadio.click();
         } else {

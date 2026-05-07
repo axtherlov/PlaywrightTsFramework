@@ -1,4 +1,5 @@
 import test, { Locator, Page } from "@playwright/test";
+import { envConfig } from "../../../config/environment-config";
 
 export class ShoppingCartPage {
     constructor(private readonly page: Page) {}
@@ -15,6 +16,16 @@ export class ShoppingCartPage {
     /** Checkout button that proceeds from the cart to the checkout flow. */
     get checkoutButton(): Locator {
         return this.page.getByRole("button", { name: "Checkout" });
+    }
+
+    /** All remove buttons in the cart. No accessible name — identified by CSS class. */
+    get removeButtons(): Locator {
+        return this.page.locator("button.remove-btn");
+    }
+
+    /** Update cart submit button (triggered programmatically by remove-btn clicks). */
+    get updateCartButton(): Locator {
+        return this.page.locator("#updatecart");
     }
 
     // ==================== Locator methods ====================
@@ -39,6 +50,21 @@ export class ShoppingCartPage {
         const cells = this.productRow(productName).locator("td");
         const count = await cells.count();
         return count > 0;
+    }
+
+    /**
+     * Removes all items from the cart. No-op when the cart is already empty.
+     * @returns {Promise<void>}
+     */
+    async clearCart(): Promise<void> {
+        await test.step(`Step: ${this.clearCart.name}`, async () => {
+            await this.page.goto(`${envConfig.baseUrl}/cart`);
+            const count = await this.removeButtons.count();
+            for (let i = 0; i < count; i++) {
+                await this.removeButtons.first().click();
+                await this.page.waitForLoadState("networkidle");
+            }
+        });
     }
 
     /**

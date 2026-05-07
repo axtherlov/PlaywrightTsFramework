@@ -15,5 +15,6 @@ Load these when the task involves the corresponding concern:
 | [flows.md](flows.md) | Flow class pattern, when to use a flow vs a page object, registration in flow.fixture.ts |
 | [page-objects.md](page-objects.md) | POM structure, getter-only locators, file locations, naming conventions |
 | [enums.md](enums.md) | When and how to use enums for repeated strings (Routes, Messages, Headings, OrderStatus) |
+| [test-data.md](test-data.md) | Test data factory pattern, faker usage, model/factory file locations, override rules |
 | [test-standards.md](test-standards.md) | GWT step structure, tagging strategy, assertion style, what to avoid |
 | [config.md](config.md) | Environment config, dotenv setup, `envConfig` usage, multi-environment support |

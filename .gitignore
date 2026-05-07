@@ -13,7 +13,8 @@ node_modules/
 /debug
 /logs
 /allure-results
-example.*
+environments/*.env
+!environments/example.env
 *.log
 
 # .NET SUT
