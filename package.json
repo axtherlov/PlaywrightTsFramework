@@ -12,11 +12,13 @@
     "main": "index.js",
     "scripts": {
         "test": "npx playwright test src/tests/eaWebApp",
-        "test1:ui": "npx playwright test --headed src/tests/eaWebApp/ui/*.spec.ts",
-        "test2:ui": "npx playwright test --headed src/tests/nopCommerce/ui/*.spec.ts",
-        "test2:api": "npx playwright test src/tests/NopCommerce/backend/products.api.spec.ts",
-        "lint": "eslint src/lib src/tests data playwright.config.ts",
-        "lint:fix": "eslint src/lib src/tests data playwright.config.ts --fix"
+        "test:nopCommerce": "npx playwright test src/tests/nopCommerce/ui/",
+        "test:eaWebApp": "npx playwright test --headed src/tests/nopCommerce/ui/",
+        "test:nopCommerce-be": "npx playwright test src/tests/nopCommerce/backend/",
+        "lint": "eslint src/lib src/tests playwright.config.ts",
+        "lint:fix": "eslint src/lib src/tests playwright.config.ts --fix",
+        "report:pw": "npx playwright show-report reports/playwright-report",
+        "report:allure": "allure serve reports/allure-results"
     },
     "devDependencies": {
         "@playwright/test": "^1.57.0",

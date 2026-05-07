@@ -26,8 +26,8 @@ export class ProductListPage {
     async goToBuildCustomComputer() {
         await test.step(`Step: ${this.goToBuildCustomComputer.name}`, async () => {
             await this.page
-                .getByRole("article")
-                .filter({ hasText: "Build your own computer Build" })
+                .getByRole("link", { name: "Build your own computer" })
+                .first()
                 .click();
         });
     }

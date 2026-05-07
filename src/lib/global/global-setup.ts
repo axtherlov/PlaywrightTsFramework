@@ -10,7 +10,6 @@ export default async function globalSetup(config: FullConfig) {
 
     globalState.browser = await chromium.launch({ headless });
     const context = await globalState.browser.newContext();
-    const page = await context.newPage();
 
     if (process.env.RUNNER?.toUpperCase() === "LOCAL") {
         const resultsDir = path.resolve(

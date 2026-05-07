@@ -1,5 +1,5 @@
 import { expect } from "@playwright/test";
-import { test } from "../../../lib/ui/nopCommerce/fixtures/ui.fixture";
+import { test } from "../../../lib/ui/nopCommerce/fixtures/merge.fixture";
 import { MenuItemsEnum } from "../../../lib/ui/nopCommerce/enums/menu-items";
 import { softwareEnum } from "../../../lib/ui/nopCommerce/enums/software-enum";
 import { ProcessorEnum } from "../../../lib/ui/nopCommerce/enums/processor-enum";
@@ -25,7 +25,7 @@ test.describe("Purchase Computer Flow", () => {
         configureComputerPage,
         shoppingCartPage,
         checkout,
-    }, testInfo) => {
+    }) => {
         await productsMenu.navigate(MenuItemsEnum.DESKTOPS);
         await productListPage.goToBuildCustomComputer();
 

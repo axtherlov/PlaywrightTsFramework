@@ -2,15 +2,15 @@
 
 ## File Locations
 
-| Type | Directory | Naming |
-|------|-----------|--------|
-| Page objects | `src/lib/ui/[appName]/page-objects/` | `[name].page.ts` |
-| Components | `src/lib/ui/[appName]/page-objects/` | `[name].component.ts` |
+| Type         | Directory                            | Naming                |
+| ------------ | ------------------------------------ | --------------------- |
+| Page objects | `src/lib/ui/[appName]/page-objects/` | `[name].page.ts`      |
+| Components   | `src/lib/ui/[appName]/page-objects/` | `[name].component.ts` |
 
 ## Page Object Pattern
 
 ```typescript
-import { expect, Locator, Page } from '@playwright/test';
+import { Locator, Page } from "@playwright/test";
 
 export class ExamplePage {
     constructor(private readonly page: Page) {}
@@ -19,12 +19,12 @@ export class ExamplePage {
 
     /** Description of the element. */
     get submitButton(): Locator {
-        return this.page.getByRole('button', { name: 'Submit' });
+        return this.page.getByRole("button", { name: "Submit" });
     }
 
     /** Description of the element. */
     get emailInput(): Locator {
-        return this.page.getByLabel('Email');
+        return this.page.getByLabel("Email");
     }
 
     // ==================== Actions ====================
@@ -37,9 +37,21 @@ export class ExamplePage {
     async submitForm(email: string): Promise<void> {
         await this.emailInput.fill(email);
         await this.submitButton.click();
-        await this.page.waitForResponse((r) => r.url().includes('/api/submit'));
+        await this.page.waitForResponse((r) => r.url().includes("/api/submit"));
     }
 }
+```
+
+## Navitation
+
+ALWAYS include a goto method and DONT use `page.goto` in the tests
+This method has to be in the "Actions" section
+
+```typescript
+ async goto(): Promise<void> {
+        await this.page.goto(`${envConfig.baseUrl}/[name]`);
+    }
+
 ```
 
 ## Rules
@@ -75,10 +87,10 @@ constructor(private readonly page: Page) {}
 
 ### Imports in Page Objects
 
-Page objects import from `@playwright/test` (not from `test-options.ts`):
+Page objects import from `@playwright/test` (not from `merge.fixture.ts`):
 
 ```typescript
-import { expect, Locator, Page } from '@playwright/test';
+import { Locator, Page } from "@playwright/test";
 ```
 
 ## Component Composition
@@ -86,13 +98,13 @@ import { expect, Locator, Page } from '@playwright/test';
 Reusable UI fragments (headers, modals, sidebars) are defined as **components** and composed into page objects:
 
 ```typescript
-import { Locator, Page } from '@playwright/test';
+import { Locator, Page } from "@playwright/test";
 
 export class NavigationComponent {
     constructor(private readonly page: Page) {}
 
     get homeLink(): Locator {
-        return this.page.getByRole('link', { name: 'Home' });
+        return this.page.getByRole("link", { name: "Home" });
     }
 
     async clickHome(): Promise<void> {
@@ -100,17 +112,18 @@ export class NavigationComponent {
     }
 
     async logout(): Promise<void> {
-        await this.page.getByTestId('user-menu-button').click();
-        await this.page.getByRole('button', { name: 'Logout' }).click();
+        await this.page.getByTestId("user-menu-button").click();
+        await this.page.getByRole("button", { name: "Logout" }).click();
     }
 }
 ```
+
 Compose components into page objects:
 
 ```typescript
 // src/lib/ui/[appName]/page-objects/dashboard.page.ts
-import { Page } from '@playwright/test';
-import { NavigationComponent } from './navigation.component';
+import { Page } from "@playwright/test";
+import { NavigationComponent } from "./navigation.component";
 
 export class DashboardPage {
     readonly nav: NavigationComponent;
@@ -124,6 +137,7 @@ export class DashboardPage {
 await dashboardPage.nav.clickHome();
 await dashboardPage.nav.logout();
 ```
+
 ## Registering New Page Objects
 
 After creating a page object, register it in `src/lib/ui/[appName]/fixtures/pages.fixture.ts`:
@@ -133,9 +147,9 @@ After creating a page object, register it in `src/lib/ui/[appName]/fixtures/page
 3. Add the fixture definition.
 
 ```typescript
-import { test as base } from '@playwright/test';
-import { AppPage } from '../page-objects/app.page';
-import { DashboardPage } from '../page-objects/dashboard.page';
+import { test as base } from "@playwright/test";
+import { AppPage } from "../page-objects/app.page";
+import { DashboardPage } from "../page-objects/dashboard.page";
 
 export type PagesFixtures = {
     appPage: AppPage;
@@ -162,6 +176,7 @@ export const test = base.extend<PagesFixtures>({
 ## Exploration Before Generation
 
 When creating page objects for a real application, **navigate to the page first** to discover:
+
 - Element roles, labels, and accessible names
 - Form field structure and validation behavior
 - Button names and available user actions

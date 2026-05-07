@@ -25,14 +25,14 @@ test('example', async ({ page }) => {
 ## Fixture Architecture
 
 ```
-src/lib/ui/[appName]/fixtures/ui.fixture.ts     ← Single import point (merges all fixtures)
+src/lib/ui/[appName]/fixtures/merge.fixture.ts     ← Single import point (merges all fixtures)
     ├── src/lib/ui/[appName]/fixtures/pages.fixture.ts   ← Page object fixtures (pom.fixture.ts for nopCommerce)
     └── src/lib/ui/[appName]/fixtures/flow.fixture.ts   ← Business flow fixture where multiple pageobjects can be involved
 ```
 
-`ui.fixture.ts` uses `mergeTests()` to combine fixture layers:
+`merge.fixture.ts` uses `mergeTests()` to combine fixture layers:
 
-When fixtures are added for "Pages" or "flows", add them in the ui.fixture.ts as its the main reference place
+When fixtures are added for "Pages" or "flows", add them in the merge.fixture.ts as its the main reference place
 
 ```typescript
 import { mergeTests } from "@playwright/test";
@@ -46,7 +46,7 @@ export const test = mergeTests(pomTest, flowTest);
 All test files MUST import `test` and `expect` from the merged fixture file:
 
 ```typescript
-import { expect, test } from '../../../lib/ui/[appName]/fixtures/ui.fixture';
+import { expect, test } from '../../../lib/ui/[appName]/fixtures/merge.fixture';
 ```
 **NEVER** import from `@playwright/test` in spec files:
 
@@ -102,7 +102,7 @@ export const test = base.extend<PagesFixtures>({
     },
 });
 ```
-### Step 3: Merge into `ui.fixture.ts` (only for new fixture categories)
+### Step 3: Merge into `merge.fixture.ts` (only for new fixture categories)
 
 If adding a completely new fixture category (not a page object), merge it:
 

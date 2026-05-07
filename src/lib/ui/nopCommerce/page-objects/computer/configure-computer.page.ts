@@ -11,11 +11,11 @@ export class ConfigureComputerPage {
     }
 
     get processorDropdown() {
-        return this.page.getByLabel("Processor");
+        return this.page.locator("#product_attribute_1");
     }
 
     get ramDropdown() {
-        return this.page.getByLabel("RAM");
+        return this.page.locator("#product_attribute_2");
     }
 
     hddRadio(HddEnum: HddEnum) {

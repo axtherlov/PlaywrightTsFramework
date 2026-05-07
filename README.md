@@ -41,8 +41,8 @@ npx playwright install
 
 4. Configure environment variables:
 
-- Use one of the files in the environments folder (for example, local.env).
-- Update base URLs and credentials for your local setup.
+- example.env has the expected variable list
+- crea
 
 5. Start required SUT services (EAWebApp and/or NopCommerce).
 
@@ -62,9 +62,11 @@ npx playwright test
 7. Open the Playwright HTML report after execution:
 
 ```bash
-npx playwright show-report
+npx run report:pw
 ```
 
-8. Allure report
+8. Open the Allure report after execution
 
-after step6. The allure report will launch automatically
+```bash
+npx run report:allure
+```

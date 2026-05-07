@@ -4,7 +4,16 @@ import { envConfig } from "../../../config/environment-config";
 export class RegisterPage {
     constructor(private readonly page: Page) {}
 
+    async goto(): Promise<void> {
+        await this.page.goto(`${envConfig.baseUrl}/register?returnUrl=%2F`);
+    }
+
     // ==================== Locators ====================
+
+    /** Page heading. */
+    get heading(): Locator {
+        return this.page.getByRole("heading", { name: "Register" });
+    }
 
     /** Male gender radio button. */
     get maleRadio(): Locator {
@@ -16,22 +25,22 @@ export class RegisterPage {
         return this.page.getByRole("radio", { name: "Female", exact: true });
     }
 
-    /** First name input field. */
+    /** First name input. */
     get firstNameInput(): Locator {
         return this.page.getByLabel("First name:");
     }
 
-    /** Last name input field. */
+    /** Last name input. */
     get lastNameInput(): Locator {
         return this.page.getByLabel("Last name:");
     }
 
-    /** Email input field. */
+    /** Email input. */
     get emailInput(): Locator {
         return this.page.getByLabel("Email:");
     }
 
-    /** Company name input field. */
+    /** Company name input. */
     get companyNameInput(): Locator {
         return this.page.getByLabel("Company name:");
     }
@@ -41,7 +50,7 @@ export class RegisterPage {
         return this.page.getByLabel("Newsletter:");
     }
 
-    /** Password input field. */
+    /** Password input. */
     get passwordInput(): Locator {
         return this.page.getByRole("textbox", {
             name: "Password:",
@@ -49,9 +58,39 @@ export class RegisterPage {
         });
     }
 
-    /** Confirm password input field. */
+    /** Confirm password input. */
     get confirmPasswordInput(): Locator {
-        return this.page.getByLabel("Confirm password:");
+        return this.page.getByRole("textbox", { name: "Confirm password:" });
+    }
+
+    /** Success message after registration. */
+    get registrationSuccessMessage(): Locator {
+        return this.page.getByText("Your registration completed");
+    }
+
+    /** First name required validation error. */
+    get firstNameError(): Locator {
+        return this.page.getByText("First name is required.");
+    }
+
+    /** Last name required validation error. */
+    get lastNameError(): Locator {
+        return this.page.getByText("Last name is required.");
+    }
+
+    /** Email required validation error. */
+    get emailRequiredError(): Locator {
+        return this.page.getByText("Email is required.");
+    }
+
+    /** Invalid email format validation error. */
+    get emailInvalidError(): Locator {
+        return this.page.getByText("Please enter a valid email address.");
+    }
+
+    /** Password required validation error. */
+    get passwordRequiredError(): Locator {
+        return this.page.getByText("Password is required.");
     }
 
     /** Register submit button. */
@@ -59,53 +98,49 @@ export class RegisterPage {
         return this.page.getByRole("button", { name: "Register" });
     }
 
-    /** Success confirmation message shown after registration. */
-    get registrationConfirmation(): Locator {
-        return this.page.getByText("Your registration completed");
-    }
-
     // ==================== Actions ====================
 
-    /** Navigate to the register page. */
-    async goto(): Promise<void> {
-        await this.page.goto(`${envConfig.baseUrl}/register`);
-    }
-
     /**
-     * Fill in the registration form and submit.
-     * @param {object} data - Registration form data.
-     * @param {'Male' | 'Female'} data.gender - Gender selection.
-     * @param {string} data.firstName - First name.
-     * @param {string} data.lastName - Last name.
-     * @param {string} data.email - Email address.
-     * @param {string} data.password - Password.
-     * @param {string} [data.company] - Optional company name.
-     * @param {boolean} [data.newsletter] - Whether to subscribe to newsletter.
+     * Fills in and submits the registration form.
+     * @param {object} details - Registration form data.
+     * @param {'Male' | 'Female'} details.gender - Gender selection.
+     * @param {string} details.firstName - First name.
+     * @param {string} details.lastName - Last name.
+     * @param {string} details.email - Email address.
+     * @param {string} details.password - Password.
+     * @param {string} [details.companyName] - Optional company name.
+     * @param {boolean} [details.newsletter] - Whether to subscribe to newsletter (defaults to checked).
      * @returns {Promise<void>}
      */
-    async register(data: {
-        gender?: "Male" | "Female";
+    async register(details: {
+        gender: "Male" | "Female";
         firstName: string;
         lastName: string;
         email: string;
         password: string;
-        company?: string;
+        companyName?: string;
         newsletter?: boolean;
     }): Promise<void> {
-        if (data.gender === "Male") await this.maleRadio.click();
-        if (data.gender === "Female") await this.femaleRadio.click();
+        if (details.gender === "Male") {
+            await this.maleRadio.click();
+        } else {
+            await this.femaleRadio.click();
+        }
 
-        await this.firstNameInput.fill(data.firstName);
-        await this.lastNameInput.fill(data.lastName);
-        await this.emailInput.fill(data.email);
+        await this.firstNameInput.fill(details.firstName);
+        await this.lastNameInput.fill(details.lastName);
+        await this.emailInput.fill(details.email);
 
-        if (data.company) await this.companyNameInput.fill(data.company);
+        if (details.companyName) {
+            await this.companyNameInput.fill(details.companyName);
+        }
 
-        if (data.newsletter === false) await this.newsletterCheckbox.uncheck();
+        if (details.newsletter === false) {
+            await this.newsletterCheckbox.uncheck();
+        }
 
-        await this.passwordInput.fill(data.password);
-        await this.confirmPasswordInput.fill(data.password);
-
+        await this.passwordInput.fill(details.password);
+        await this.confirmPasswordInput.fill(details.password);
         await this.registerButton.click();
     }
 }

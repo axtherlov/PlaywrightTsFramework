@@ -1,14 +1,13 @@
-
 ## description: Test file structure, tagging, step patterns, and import rules
 
 # Test Standards
 
 ## Imports
 
-**ALWAYS** import `test` and `expect` from the merged fixture file:
+**ALWAYS** import `test` from the merged fixture file:
 
 ```typescript
-import { expect, test } from '../../../lib/ui/[appName]/fixtures/ui.fixture';
+import { expect, test } from "../../../lib/ui/[appName]/fixtures/merge.fixture";
 ```
 
 **NEVER** import from `@playwright/test` in spec files.
@@ -16,35 +15,39 @@ import { expect, test } from '../../../lib/ui/[appName]/fixtures/ui.fixture';
 ## Test File Structure
 
 ```typescript
-import { expect, test } from '../../../lib/ui/[appName]/fixtures/ui.fixture';
+import { expect, test } from "../../../lib/ui/[appName]/fixtures/merge.fixture";
 
-test.describe('Feature Name', () => {
+test.describe("Feature Name", () => {
     test.beforeEach(async ({ appPage }) => {
         await appPage.openHomePage();
     });
 
-    test('should do expected behavior', { tag: '@smoke' }, async ({ appPage }) => {
-        await test.step('GIVEN initial state', async () => {
-            // setup/preconditions
-        });
+    test(
+        "should do expected behavior",
+        { tag: "@smoke" },
+        async ({ appPage }) => {
+            await test.step("GIVEN initial state", async () => {
+                // setup/preconditions
+            });
 
-        await test.step('WHEN user performs action', async () => {
-            // action
-        });
+            await test.step("WHEN user performs action", async () => {
+                // action
+            });
 
-        await test.step('THEN expected result occurs', async () => {
-            // assertions
-        });
-    });
+            await test.step("THEN expected result occurs", async () => {
+                // assertions
+            });
+        },
+    );
 });
 ```
 
 ## Test File Location
 
-| Test Type | Directory | Tag |
-|-----------|-----------|-----|
-| UI E2E | `src/tests/[appName]/ui/` | `@smoke`, `@regression`, `@functional` |
-| API | `src/tests/[appName]/backend/` | `@api` |
+| Test Type | Directory                      | Tag                                    |
+| --------- | ------------------------------ | -------------------------------------- |
+| UI E2E    | `src/tests/[appName]/ui/`      | `@smoke`, `@regression`, `@functional` |
+| API       | `src/tests/[appName]/backend/` | `@api`                                 |
 
 ## Tagging Rules
 
@@ -64,6 +67,7 @@ test.describe('Feature @smoke', () => { ... });
 ### Available Tags
 
 **Importance tags** (pick one):
+
 - `@smoke` -- Critical path, run first and frequently
 - `@regression` -- Full regression coverage
 - `@functional` -- UI functional tests
@@ -73,19 +77,23 @@ test.describe('Feature @smoke', () => { ... });
 Use `test.step()` for readable structure and better HTML report output:
 
 ```typescript
-test('should show error for invalid login', { tag: '@functional' }, async ({ appPage }) => {
-    await test.step('GIVEN user is on the login page', async () => {
-        await expect(appPage.loginButton).toBeVisible();
-    });
+test(
+    "should show error for invalid login",
+    { tag: "@functional" },
+    async ({ appPage }) => {
+        await test.step("GIVEN user is on the login page", async () => {
+            await expect(appPage.loginButton).toBeVisible();
+        });
 
-    await test.step('WHEN user enters invalid credentials', async () => {
-        await appPage.login('bad@email.com', 'wrongpass');
-    });
+        await test.step("WHEN user enters invalid credentials", async () => {
+            await appPage.login("bad@email.com", "wrongpass");
+        });
 
-    await test.step('THEN error message is displayed', async () => {
-        await expect(appPage.errorMessage).toBeVisible();
-    });
-});
+        await test.step("THEN error message is displayed", async () => {
+            await expect(appPage.errorMessage).toBeVisible();
+        });
+    },
+);
 ```
 
 ## Assertions
@@ -95,7 +103,7 @@ Use **web-first assertions** only. These auto-wait and retry until the condition
 ```typescript
 // CORRECT -- web-first assertions
 await expect(locator).toBeVisible();
-await expect(locator).toHaveText('Expected text');
+await expect(locator).toHaveText("Expected text");
 await expect(locator).toBeEnabled();
 await expect(locator).toHaveCount(3);
 
@@ -108,18 +116,18 @@ await page.waitForTimeout(1000); // NEVER use this
 Loop **outside** test blocks to generate individual test cases:
 
 ```typescript
-import testData from './test-data/invalidCredentials.json';
+import testData from "./test-data/invalidCredentials.json";
 
 const { invalidCredentials } = testData;
 
 for (const { description, email, password } of invalidCredentials) {
     test(
         `should show error for ${description}`,
-        { tag: '@regression' },
+        { tag: "@regression" },
         async ({ appPage }) => {
             await appPage.login(email, password);
             await expect(appPage.errorMessage).toBeVisible();
-        }
+        },
     );
 }
 ```
@@ -146,22 +154,22 @@ Tests tagged `@destructive` modify shared application state (e.g., deleting data
 Every `@destructive` test **MUST** use `test.afterEach()` or `test.afterAll()` to revert any state changes, ensuring subsequent tests run against a clean environment:
 
 ```typescript
-test.describe('admin data management', () => {
+test.describe("admin data management", () => {
     test.afterEach(async ({ apiRequest }) => {
         // REQUIRED: Revert state changes made by the test
         await apiRequest({
-            method: 'POST',
+            method: "POST",
             url: ApiEndpoints.RESET_DATA,
             baseUrl: process.env.API_URL,
         });
     });
 
     test(
-        'should delete all inactive users',
-        { tag: ['@destructive', '@regression'] },
+        "should delete all inactive users",
+        { tag: ["@destructive", "@regression"] },
         async ({ apiRequest }) => {
             // Test that modifies shared state
-        }
+        },
     );
 });
 ```
