@@ -1,4 +1,4 @@
-import test, { expect, Page } from "@playwright/test";
+import test, { expect, Locator, Page } from "@playwright/test";
 import { BasePage } from "../page-objects/base.page";
 import { log } from "../../../helpers/logger";
 import { MenuItemsEnum } from "../enums/menu-items";
@@ -9,47 +9,66 @@ export class ProductsMenu extends BasePage {
         super(page);
     }
 
-    getProductButton(item: MenuItemsEnum) {
-        return this.page.getByRole("button", { name: item });
+    // ==================== Locators ====================
+
+    /** Search store text input in the top navigation bar. */
+    get searchInput(): Locator {
+        return this.page.getByRole("textbox", { name: "Search store" });
     }
 
-    get searchInput() {
-        return this.page.getByRole("textbox", { name: "Search Store" });
-    }
-
-    get searchButton() {
+    /** Search submit button in the top navigation bar. */
+    get searchButton(): Locator {
         return this.page.getByRole("button", { name: "Search" });
     }
 
-    get shoppingCartLink() {
-        return this.page
-            .locator(
-                "a:has-text('Shopping cart'), [aria-label*='Shopping cart']",
-            )
-            .first();
+    // ==================== Locator methods ====================
+
+    /**
+     * Returns the top-level navigation button for the given menu item.
+     * @param {MenuItemsEnum} item - The menu item to locate.
+     * @returns {Locator}
+     */
+    getProductButton(item: MenuItemsEnum): Locator {
+        return this.page.getByRole("button", { name: item });
     }
 
-    async navigate(item: MenuItemsEnum) {
+    // ==================== Actions ====================
+
+    /**
+     * Navigates directly to the category page for the given menu item.
+     * @param {MenuItemsEnum} item - The category to navigate to.
+     * @returns {Promise<void>}
+     */
+    async navigate(item: MenuItemsEnum): Promise<void> {
         await test.step(`Step: navigate to ${item} page`, async () => {
             await this.page.goto(`${envConfig.baseUrl}/${item}`);
             await expect(this.page).toHaveURL(new RegExp(`.*${item}`));
         });
     }
 
-    /** Page Actions */
-    async selectProduct(item: MenuItemsEnum) {
+    /**
+     * Clicks the top-level navigation button for the given menu item.
+     * @param {MenuItemsEnum} item - The menu item to click.
+     * @returns {Promise<void>}
+     */
+    async selectProduct(item: MenuItemsEnum): Promise<void> {
         await log("info", `Selecting ${item} from menu`);
         const button = this.getProductButton(item);
         await button.click();
         await log("info", `${item} menu selected`);
     }
 
-    async searchStore(searchTerm: string) {
+    /**
+     * Fills the search box and submits the search.
+     * @param {string} searchTerm - The term to search for.
+     * @returns {Promise<void>}
+     */
+    async searchStore(searchTerm: string): Promise<void> {
         await log("info", `Searching for: ${searchTerm}`);
         await this.searchInput.click();
         await this.searchInput.fill(searchTerm);
 
-        // Handle any dialog that might appear
+        // Dismiss any browser dialog that the search interaction triggers.
         this.page.once("dialog", (dialog) => {
             log("info", `Dialog message: ${dialog.message()}`);
             dialog.dismiss().catch(() => {});
@@ -57,27 +76,5 @@ export class ProductsMenu extends BasePage {
 
         await this.searchButton.click();
         await log("info", `Search for "${searchTerm}" completed`);
-    }
-
-    async openShoppingCart() {
-        await log("info", "Opening shopping cart from main menu");
-        try {
-            const cartLink = this.shoppingCartLink;
-            const isVisible = await cartLink
-                .isVisible({ timeout: 2000 })
-                .catch(() => false);
-            if (isVisible) {
-                await cartLink.click();
-                await expect(this.page).toHaveURL(/.*cart/);
-                await log("info", "Shopping cart opened successfully");
-            } else {
-                await log("warn", "Shopping cart link not visible");
-            }
-        } catch (e) {
-            await log(
-                "error",
-                `Error opening shopping cart: ${(e as Error).message}`,
-            );
-        }
     }
 }

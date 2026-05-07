@@ -53,6 +53,13 @@ cd SUT
 docker compose up -d
 ```
 
+Once running, the following URLs are available:
+
+| Service                 | URL                   |
+| ----------------------- | --------------------- |
+| EA Web App (frontend)   | http://localhost:5001 |
+| EA API (Swagger / REST) | http://localhost:5002 |
+
 6. Run tests: (below command will run tests for EAWebApp)
 
 ```bash

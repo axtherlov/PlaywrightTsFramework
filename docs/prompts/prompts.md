@@ -15,6 +15,8 @@ Add a test for the following scenarios
 
 Once created run the test and provide summary
 
+When needed use playwright-cli to navigate and capture webElements to create the page-objects
+
 execute the task based on @docs/test-framework/rules.md
 
 ## Debug and fix test with healing agent

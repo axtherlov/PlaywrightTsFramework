@@ -1,16 +1,22 @@
-import test, { Page } from "@playwright/test";
+import test, { Locator, Page } from "@playwright/test";
 
 export class MainMenu {
-    page: Page;
-    constructor(page: Page) {
-        this.page = page;
+    constructor(private readonly page: Page) {}
+
+    // ==================== Locators ====================
+
+    /** Shopping cart icon/link in the top navigation bar. */
+    get shoppingCartButton(): Locator {
+        return this.page.getByRole("link", { name: "Shopping cart" }).first();
     }
 
-    get shoppingCartButton() {
-        return this.page.locator("#topcartlink");
-    }
+    // ==================== Actions ====================
 
-    async openShoppingCart() {
+    /**
+     * Clicks the shopping cart link in the top navigation bar.
+     * @returns {Promise<void>}
+     */
+    async openShoppingCart(): Promise<void> {
         await test.step(`Step: ${this.openShoppingCart.name}`, async () => {
             await this.shoppingCartButton.click();
         });

@@ -1,17 +1,22 @@
-import test, { Page } from "@playwright/test";
+import test, { Locator, Page } from "@playwright/test";
 
 export class SignIn {
-    page: Page;
+    constructor(private readonly page: Page) {}
 
-    constructor(page: Page) {
-        this.page = page;
-    }
+    // ==================== Locators ====================
 
-    get checkoutAsGuestButton() {
+    /** Button to proceed through checkout without creating an account. */
+    get checkoutAsGuestButton(): Locator {
         return this.page.getByRole("button", { name: "Checkout as Guest" });
     }
 
-    async checkoutAsGuest() {
+    // ==================== Actions ====================
+
+    /**
+     * Clicks the "Checkout as Guest" button on the sign-in step.
+     * @returns {Promise<void>}
+     */
+    async checkoutAsGuest(): Promise<void> {
         await test.step(`Step: ${this.checkoutAsGuest.name}`, async () => {
             await this.checkoutAsGuestButton.click();
         });
