@@ -72,7 +72,9 @@ export class Checkout {
 
     /** Success message displayed after the order is placed. */
     get orderConfirmationMessage(): Locator {
-        return this.page.getByText("Your order has been successfully processed!");
+        return this.page.getByText(
+            "Your order has been successfully processed!",
+        );
     }
 
     /** Saved billing address dropdown for registered users. */

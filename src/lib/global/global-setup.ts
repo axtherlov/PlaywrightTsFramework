@@ -11,16 +11,10 @@ export default async function globalSetup(config: FullConfig) {
     globalState.browser = await chromium.launch({ headless });
     const context = await globalState.browser.newContext();
 
-    if (process.env.RUNNER?.toUpperCase() === "LOCAL") {
-        const resultsDir = path.resolve(
-            process.cwd(),
-            "reports/allure-results",
-        );
-
-        if (fs.existsSync(resultsDir)) {
-            fs.rmSync(resultsDir, { recursive: true, force: true });
-            console.log(">> Allure report result deleted for local run");
-        }
+    const reportsDir = path.resolve(process.cwd(), "reports");
+    if (fs.existsSync(reportsDir)) {
+        fs.rmSync(reportsDir, { recursive: true, force: true });
+        console.log(">> Reports folder cleaned");
     }
     console.log(">> Completed global setup");
 }

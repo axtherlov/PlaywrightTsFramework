@@ -10,7 +10,10 @@ jobs:
         runs-on: ubuntu-latest
         env:
             BASE_URL: ${{ secrets.BASE_URL }}
+            ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+            ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
         steps:
+            # ── Stage 1: Environment Setup ────────────────────────────────
             - uses: actions/checkout@v5
             - uses: actions/setup-node@v5
               with:
@@ -19,16 +22,17 @@ jobs:
               run: npm ci
             - name: Install Playwright Browsers
               run: npx playwright install --with-deps
-            - name: Install Allure commandline.
+            - name: Install Allure commandline
               run: npm install -g allure-commandline --save-dev
-            - name: Install SUT with docker
+            - name: Start SUT via Docker
               run: docker compose -f ${{ github.workspace }}/SUT/docker-compose.yml up -d ea_api ea_webapp
+
+            # ── Stage 2: Test Execution & Reporting ───────────────────────
             - name: Run Playwright tests
               run: npm run test
             - name: Generate Allure Report
-              run: |
-                  allure generate reports/allure-results --clean -o reports/allure-report 
-                  allure open -h 127.0.0.1 -p 5060 reports/allure-report &
+              if: ${{ !cancelled() }}
+              run: allure generate reports/allure-results --clean -o reports/allure-report
             - uses: actions/upload-artifact@v4
               if: ${{ !cancelled() }}
               with:
