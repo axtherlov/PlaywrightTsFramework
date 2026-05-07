@@ -15,6 +15,7 @@ node_modules/
 /allure-results
 environments/*.env
 !environments/example.env
+!environments/ci.env
 *.log
 
 # .NET SUT
