@@ -17,6 +17,7 @@ Load [docs/test-framework/rules.md](docs/test-framework/rules.md) first — it i
 | [selectors.md](docs/test-framework/selectors.md)           | Selector priority order; forbidden patterns   |
 | [page-objects.md](docs/test-framework/page-objects.md)     | POM structure, `goto()`, getter-only locators |
 | [fixtures.md](docs/test-framework/fixtures.md)             | Fixture dependency injection                  |
+| [flows.md](docs/test-framework/flows.md)                   | Flow classes, when to use vs page objects     |
 | [enums.md](docs/test-framework/enums.md)                   | Enums for repeated strings                    |
 | [test-standards.md](docs/test-framework/test-standards.md) | GWT steps, tagging, assertions, imports       |
 | [config.md](docs/test-framework/config.md)                 | Environment config, `envConfig` usage         |

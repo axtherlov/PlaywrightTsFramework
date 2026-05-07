@@ -12,6 +12,7 @@ Load these when the task involves the corresponding concern:
 |------|---------|
 | [selectors.md](selectors.md) | Mandatory selector priority order; forbidden patterns (CSS, XPath as primary) |
 | [fixtures.md](fixtures.md) | How to write and extend fixtures; what is and isn't allowed inside fixture files |
+| [flows.md](flows.md) | Flow class pattern, when to use a flow vs a page object, registration in flow.fixture.ts |
 | [page-objects.md](page-objects.md) | POM structure, getter-only locators, file locations, naming conventions |
 | [enums.md](enums.md) | When and how to use enums for repeated strings (Routes, Messages, Headings, OrderStatus) |
 | [test-standards.md](test-standards.md) | GWT step structure, tagging strategy, assertion style, what to avoid |
