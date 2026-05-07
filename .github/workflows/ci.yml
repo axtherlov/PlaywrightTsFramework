@@ -4,12 +4,19 @@ on:
         branches: [main, master]
     pull_request:
         branches: [main, master]
+
+permissions:
+    contents: write
+    pages: write
+    id-token: write
+
 jobs:
     test:
         name: Run playwright tests
         timeout-minutes: 60
         runs-on: ubuntu-latest
         env:
+            ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
             BASE_URL: ${{ secrets.BASE_URL }}
             API_URL: ${{ secrets.API_URL }}
             ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
@@ -24,17 +31,33 @@ jobs:
               run: npm ci
             - name: Install Playwright Browsers
               run: npx playwright install --with-deps
-            - name: Install Allure commandline
-              run: npm install -g allure-commandline --save-dev
-            - name: Start SUT via Docker
+            - name: Start SUT:eaApp via Docker
               run: docker compose -f ${{ github.workspace }}/SUT/docker-compose.yml up -d ea_api ea_webapp
 
             # ── Stage 2: Test Execution & Reporting ───────────────────────
             - name: Run Playwright tests
               run: npm run test
-            - name: Generate Allure Report
-              if: ${{ !cancelled() }}
-              run: allure generate reports/allure-results --clean -o reports/allure-report
+            - name: Load previous Allure history
+              uses: actions/checkout@v5
+              if: always()
+              continue-on-error: true
+              with:
+                  ref: gh-pages
+                  path: gh-pages
+            - name: Generate Allure report
+              uses: simple-elf/allure-report-action@v1.13
+              if: always()
+              with:
+                  allure_results: reports/allure-results
+                  allure_history: allure-history
+                  keep_reports: 20
+            - name: Publish Allure report to GitHub Pages
+              uses: peaceiris/actions-gh-pages@v4
+              if: always()
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  publish_branch: gh-pages
+                  publish_dir: allure-history
             - uses: actions/upload-artifact@v4
               if: ${{ !cancelled() }}
               with:
@@ -44,8 +67,8 @@ jobs:
             - uses: actions/upload-artifact@v4
               if: ${{ !cancelled() }}
               with:
-                  name: allure-report
-                  path: reports/allure-report/
+                  name: allure-results
+                  path: reports/allure-results/
                   retention-days: 30
             - uses: actions/upload-artifact@v4
               if: ${{ !cancelled() }}
@@ -53,3 +76,8 @@ jobs:
                   name: test-results
                   path: reports/test-results/
                   retention-days: 30
+            - name: Add Allure report link to summary
+              if: always()
+              run: |
+                  echo "## Allure Report" >> $GITHUB_STEP_SUMMARY
+                  echo "👉 https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/" >> $GITHUB_STEP_SUMMARY
