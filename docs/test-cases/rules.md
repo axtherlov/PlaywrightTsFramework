@@ -71,3 +71,18 @@ Each test case in the `.md` maps to the following BrowserStack fields:
 | **Low**      | Cosmetic, copy, or very edge input                       |
 
 ---
+
+## Tags
+
+Each test case must include one tag derived from its Priority:
+
+| Priority | Tag          |
+| -------- | ------------ |
+| Critical | `smoke`      |
+| High     | `regression` |
+| Medium   | `regression` |
+| Low      | `regression` |
+
+Tags drive test execution filtering in BrowserStack — e.g. run only `smoke` tagged cases on every build, `regression` before a release.
+
+---

@@ -1,5 +1,5 @@
 {
-    "servers": {
+    "mcpServers": {
         "playwright": {
             "command": "npx",
             "args": ["@playwright/mcp@latest"]
@@ -8,6 +8,11 @@
             "type": "stdio",
             "command": "npx",
             "args": ["playwright", "run-test-mcp-server", "--headless"]
+        },
+        "browserstack": {
+            "command": "npx",
+            "args": ["-y", "@browserstack/mcp-server@latest"],
+            "env": {}
         }
     }
 }

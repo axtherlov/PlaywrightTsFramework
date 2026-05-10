@@ -28,3 +28,5 @@ environments/*.env
 /SUT/**/*.suo
 /SUT/**/*.userosscache
 /SUT/**/*.sln.docstates
+NUL
+.claude/settings.local.json

@@ -1,9 +1,9 @@
-## description: Enum conventions, naming, and usage rules
+# description: Enum conventions, naming, and usage rules
 
 ## File Locations
 
-| Type | Directory | Naming |
-|------|-----------|--------|
+| Type               | Directory                     | Naming                          |
+| ------------------ | ----------------------------- | ------------------------------- |
 | App-specific enums | `src/lib/ui/[appName]/enums/` | `[name]-enum.ts` or `[name].ts` |
 
 ## Rules
@@ -14,11 +14,11 @@ Define enums for any string value used in more than one place: UI messages, API 
 
 ```typescript
 // CORRECT -- enum for repeated strings
-import { Messages } from '../enums/[name]-enum'; // or '../enums/[name]' depending on file naming
+import { Messages } from "../enums/[name]-enum"; // or '../enums/[name]' depending on file naming
 await expect(page.getByText(Messages.LOGIN_ERROR)).toBeVisible();
 
 // FORBIDDEN -- hardcoded string used in multiple places
-await expect(page.getByText('Invalid email or password')).toBeVisible();
+await expect(page.getByText("Invalid email or password")).toBeVisible();
 ```
 
 ### Naming Convention
@@ -28,8 +28,8 @@ await expect(page.getByText('Invalid email or password')).toBeVisible();
 
 ```typescript
 export enum ApiEndpoints {
-    LOGIN = '/api/users/login',
-    CURRENT_USER = '/api/users/me',
+    LOGIN = "/api/users/login",
+    CURRENT_USER = "/api/users/me",
 }
 ```
 
@@ -44,7 +44,7 @@ Add JSDoc comments to enum declarations:
 ```typescript
 /** Common UI messages displayed to the user */
 export enum Messages {
-    LOGIN_SUCCESS = 'Successfully logged in',
-    LOGIN_ERROR = 'Invalid email or password',
+    LOGIN_SUCCESS = "Successfully logged in",
+    LOGIN_ERROR = "Invalid email or password",
 }
 ```
