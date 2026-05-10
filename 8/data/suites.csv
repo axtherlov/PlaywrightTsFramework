@@ -1,0 +1,6 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","132","Should create a product","chromium","Sun May 10 18:52:24 UTC 2026","passed","Sun May 10 18:52:24 UTC 2026","Product API CRUD","eaWebApp/backend/products.api.spec.ts","",""
+"","227","Should get list of products","chromium","Sun May 10 18:52:23 UTC 2026","passed","Sun May 10 18:52:24 UTC 2026","Product API CRUD","eaWebApp/backend/products.api.spec.ts","",""
+"","1219","product can be created","chromium","Sun May 10 18:52:24 UTC 2026","passed","Sun May 10 18:52:25 UTC 2026","Product UI Flow","eaWebApp/ui/product.ui.spec.ts","",""
+"","905","Product can be deleted","chromium","Sun May 10 18:52:25 UTC 2026","passed","Sun May 10 18:52:26 UTC 2026","Product UI Flow","eaWebApp/ui/product.ui.spec.ts","",""
+"","24","Should get specific product by id","chromium","Sun May 10 18:52:24 UTC 2026","passed","Sun May 10 18:52:24 UTC 2026","Product API CRUD","eaWebApp/backend/products.api.spec.ts","",""
