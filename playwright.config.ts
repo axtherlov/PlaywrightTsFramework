@@ -58,7 +58,12 @@ export default defineConfig({
         ignoreHTTPSErrors: true,
         navigationTimeout: 30_000,
         screenshot: "on",
-        video: "retain-on-failure",
+        video: {
+            mode: "retain-on-failure",
+            show: {
+                actions: { position: "top-left" },
+            },
+        },
     },
 
     /* Configure projects for major browsers */
