@@ -26,7 +26,7 @@ export class ConfigureComputerPage {
      * @param {HddEnum} hdd - The HDD option to locate.
      * @returns {Locator}
      */
-    hddRadio(hdd: HddEnum): Locator {
+    private hddRadio(hdd: HddEnum): Locator {
         return this.page.getByRole("radio", { name: hdd.toString() });
     }
 
@@ -35,7 +35,7 @@ export class ConfigureComputerPage {
      * @param {OSEnum} os - The OS option to locate.
      * @returns {Locator}
      */
-    osRadio(os: OSEnum): Locator {
+    private osRadio(os: OSEnum): Locator {
         return this.page.getByRole("radio", { name: os.toString() });
     }
 
@@ -44,7 +44,7 @@ export class ConfigureComputerPage {
      * @param {softwareEnum} software - The software option to locate.
      * @returns {Locator}
      */
-    softwareCheckbox(software: softwareEnum): Locator {
+    private softwareCheckbox(software: softwareEnum): Locator {
         return this.page.getByRole("checkbox", { name: software.toString() });
     }
 

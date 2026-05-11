@@ -91,7 +91,7 @@ export class Checkout {
      * @param {ShippingMethodEnum} shippingMethod - The shipping option to select.
      * @returns {Locator}
      */
-    shippingOptionRadio(shippingMethod: ShippingMethodEnum): Locator {
+    private shippingOptionRadio(shippingMethod: ShippingMethodEnum): Locator {
         return this.page
             .locator(`input[type='radio'][name*='shippingoption']`)
             .nth(Number(shippingMethod));
@@ -102,7 +102,7 @@ export class Checkout {
      * @param {PaymentMethodEnum} paymentMethod - The payment option to select.
      * @returns {Locator}
      */
-    paymentMethodRadio(paymentMethod: PaymentMethodEnum): Locator {
+    private paymentMethodRadio(paymentMethod: PaymentMethodEnum): Locator {
         return this.page
             .locator(`input[type='radio'][name*='paymentmethod']`)
             .nth(Number(paymentMethod));

@@ -3,19 +3,16 @@ import { MenuItemsEnum } from "../enums/menu-items";
 import { ProductsMenu } from "../components/products-menu.page";
 import { ProductListPage } from "../page-objects/product-list.page";
 import { ProductDetailsPage } from "../page-objects/product-details.page";
-import { MainMenu } from "../components/main-menu.page";
 
 export class CartFlow {
     private readonly productsMenu: ProductsMenu;
     private readonly productListPage: ProductListPage;
     private readonly productDetailsPage: ProductDetailsPage;
-    private readonly mainMenu: MainMenu;
 
     constructor(private readonly page: Page) {
         this.productsMenu = new ProductsMenu(page);
         this.productListPage = new ProductListPage(page);
         this.productDetailsPage = new ProductDetailsPage(page);
-        this.mainMenu = new MainMenu(page);
     }
 
     /**

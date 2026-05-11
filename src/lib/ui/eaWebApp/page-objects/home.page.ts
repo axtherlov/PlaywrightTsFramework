@@ -3,7 +3,7 @@ import { MenuPage } from "./menu.page";
 import { envConfig } from "../../../config/environment-config";
 
 export class HomePage {
-    page: Page;
+    private readonly page: Page;
     menu: MenuPage;
     constructor(page: Page) {
         this.page = page;

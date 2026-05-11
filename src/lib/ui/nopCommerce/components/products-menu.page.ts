@@ -28,7 +28,7 @@ export class ProductsMenu extends BasePage {
      * @param {MenuItemsEnum} item - The menu item to locate.
      * @returns {Locator}
      */
-    getProductButton(item: MenuItemsEnum): Locator {
+    private getProductButton(item: MenuItemsEnum): Locator {
         return this.page.getByRole("button", { name: item });
     }
 

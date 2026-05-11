@@ -1,7 +1,15 @@
 import test, { Locator, Page } from "@playwright/test";
+import { MainMenu } from "../components/main-menu.page";
+import { ProductsMenu } from "../components/products-menu.page";
 
 export class ProductListPage {
-    constructor(private readonly page: Page) {}
+    readonly mainMenu: MainMenu;
+    readonly productsMenu: ProductsMenu;
+
+    constructor(private readonly page: Page) {
+        this.mainMenu = new MainMenu(page);
+        this.productsMenu = new ProductsMenu(page);
+    }
 
     // ==================== Locators ====================
 
@@ -17,7 +25,7 @@ export class ProductListPage {
      * @param {string} productName - The exact product name shown in the listing.
      * @returns {Locator}
      */
-    productCard(productName: string): Locator {
+    private productCard(productName: string): Locator {
         return this.page.locator(".item-grid .item-box").filter({
             has: this.page.getByRole("heading", { name: productName, exact: true }),
         });
@@ -28,7 +36,7 @@ export class ProductListPage {
      * @param {string} productName - The exact product name shown in the listing.
      * @returns {Locator}
      */
-    productLink(productName: string): Locator {
+    private productLink(productName: string): Locator {
         return this.productCard(productName).getByRole("heading", { name: productName, exact: true }).getByRole("link");
     }
 

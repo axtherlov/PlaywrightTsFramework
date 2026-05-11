@@ -8,13 +8,13 @@ export class HomePage extends BasePage {
         super(page);
     }
     /** Elements */
-    get userNameInputBox() {
+    private get userNameInputBox() {
         return this.page.getByRole("textbox", { name: "Email:" });
     }
-    get passwordInputBox() {
+    private get passwordInputBox() {
         return this.page.getByRole("textbox", { name: "Password:" });
     }
-    get loginBtn() {
+    private get loginBtn() {
         return this.page.getByRole("button", { name: "Log in" });
     }
 
