@@ -1,13 +1,10 @@
 import test, { expect, Locator, Page } from "@playwright/test";
-import { BasePage } from "../page-objects/base.page";
 import { log } from "../../../helpers/logger";
 import { MenuItemsEnum } from "../enums/menu-items";
 import { envConfig } from "../../../config/environment-config";
 
-export class ProductsMenu extends BasePage {
-    constructor(page: Page) {
-        super(page);
-    }
+export class ProductsMenu {
+    constructor(private readonly page: Page) {}
 
     // ==================== Locators ====================
 

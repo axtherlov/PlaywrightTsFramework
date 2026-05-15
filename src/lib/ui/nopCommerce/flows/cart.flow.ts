@@ -1,5 +1,6 @@
 import test, { Page } from "@playwright/test";
 import { MenuItemsEnum } from "../enums/menu-items";
+import { MainMenu } from "../components/main-menu.page";
 import { ProductsMenu } from "../components/products-menu.page";
 import { ProductListPage } from "../page-objects/product-list.page";
 import { ProductDetailsPage } from "../page-objects/product-details.page";
@@ -11,7 +12,7 @@ export class CartFlow {
 
     constructor(private readonly page: Page) {
         this.productsMenu = new ProductsMenu(page);
-        this.productListPage = new ProductListPage(page);
+        this.productListPage = new ProductListPage(page, new MainMenu(page), this.productsMenu);
         this.productDetailsPage = new ProductDetailsPage(page);
     }
 

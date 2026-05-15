@@ -62,7 +62,9 @@ test.describe("Purchase Computer Flow - Registered User", () => {
                 await shoppingCartPage.checkout();
                 await checkout.useSavedBillingAddress();
                 await checkout.selectShippingMethod(ShippingMethodEnum.GROUND);
-                await checkout.selectPaymentMethod(PaymentMethodEnum.MONEY_ORDER);
+                await checkout.selectPaymentMethod(
+                    PaymentMethodEnum.MONEY_ORDER,
+                );
                 await checkout.confirmOrder();
             });
 
