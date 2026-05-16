@@ -13,6 +13,15 @@
             "command": "npx",
             "args": ["-y", "@browserstack/mcp-server@latest"],
             "env": {}
+        },
+        "azure-devops": {
+            "command": "npx",
+            "args": ["-y", "@tiberriver256/mcp-server-azure-devops"],
+            "env": {
+                "AZURE_DEVOPS_ORG_URL": "",
+                "AZURE_DEVOPS_AUTH_METHOD": "",
+                "AZURE_DEVOPS_PAT": ""
+            }
         }
     }
 }
