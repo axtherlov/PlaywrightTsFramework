@@ -33,8 +33,8 @@ const pageFactory = customTest.extend<Pages>({
     productsMenu: async ({ page }, use) => {
         await use(new ProductsMenu(page));
     },
-    productListPage: async ({ page }, use) => {
-        await use(new ProductListPage(page));
+    productListPage: async ({ page, mainMenu, productsMenu }, use) => {
+        await use(new ProductListPage(page, mainMenu, productsMenu));
     },
     configureComputerPage: async ({ page }, use) => {
         await use(new ConfigureComputerPage(page));

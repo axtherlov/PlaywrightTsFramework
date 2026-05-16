@@ -3,13 +3,11 @@ import { MainMenu } from "../components/main-menu.page";
 import { ProductsMenu } from "../components/products-menu.page";
 
 export class ProductListPage {
-    readonly mainMenu: MainMenu;
-    readonly productsMenu: ProductsMenu;
-
-    constructor(private readonly page: Page) {
-        this.mainMenu = new MainMenu(page);
-        this.productsMenu = new ProductsMenu(page);
-    }
+    constructor(
+        private readonly page: Page,
+        readonly mainMenu: MainMenu,
+        readonly productsMenu: ProductsMenu,
+    ) {}
 
     // ==================== Locators ====================
 

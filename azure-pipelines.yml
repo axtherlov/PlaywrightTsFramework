@@ -39,7 +39,7 @@ steps:
   condition: always()
   inputs:
       testResultsFormat: JUnit
-      testResultsFiles: reports/test-results/**/*.xml
+      testResultsFiles: reports/junit/results.xml
       mergeTestResults: true
       testRunTitle: nopCommerce UI Tests
 - task: PublishPipelineArtifact@1

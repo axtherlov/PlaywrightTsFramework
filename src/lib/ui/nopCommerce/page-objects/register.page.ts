@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import test, { Locator, Page } from "@playwright/test";
 import { envConfig } from "../../../config/environment-config";
 import { RegistrationInfo } from "../model/registration-info";
 
@@ -6,7 +6,9 @@ export class RegisterPage {
     constructor(private readonly page: Page) {}
 
     async goto(): Promise<void> {
-        await this.page.goto(`${envConfig.baseUrl}/register?returnUrl=%2F`);
+        await test.step(`Step: ${this.goto.name}`, () =>
+            this.page.goto(`${envConfig.baseUrl}/register?returnUrl=%2F`),
+        );
     }
 
     // ==================== Locators ====================
@@ -107,26 +109,28 @@ export class RegisterPage {
      * @returns {Promise<void>}
      */
     async register(details: RegistrationInfo): Promise<void> {
-        if (details.gender === "Male") {
-            await this.maleRadio.click();
-        } else {
-            await this.femaleRadio.click();
-        }
+        await test.step(`Step: ${this.register.name}`, async () => {
+            if (details.gender === "Male") {
+                await this.maleRadio.click();
+            } else {
+                await this.femaleRadio.click();
+            }
 
-        await this.firstNameInput.fill(details.firstName);
-        await this.lastNameInput.fill(details.lastName);
-        await this.emailInput.fill(details.email);
+            await this.firstNameInput.fill(details.firstName);
+            await this.lastNameInput.fill(details.lastName);
+            await this.emailInput.fill(details.email);
 
-        if (details.companyName) {
-            await this.companyNameInput.fill(details.companyName);
-        }
+            if (details.companyName) {
+                await this.companyNameInput.fill(details.companyName);
+            }
 
-        if (details.newsletter === false) {
-            await this.newsletterCheckbox.uncheck();
-        }
+            if (details.newsletter === false) {
+                await this.newsletterCheckbox.uncheck();
+            }
 
-        await this.passwordInput.fill(details.password);
-        await this.confirmPasswordInput.fill(details.password);
-        await this.registerButton.click();
+            await this.passwordInput.fill(details.password);
+            await this.confirmPasswordInput.fill(details.password);
+            await this.registerButton.click();
+        });
     }
 }

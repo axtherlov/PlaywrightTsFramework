@@ -1,12 +1,8 @@
 import { expect, type Page } from "@playwright/test";
-import { BasePage } from "./base.page.js";
 import { log } from "../../../helpers/logger.js";
 
-export class HomePage extends BasePage {
-    // Constructor
-    constructor(page: Page) {
-        super(page);
-    }
+export class HomePage {
+    constructor(private readonly page: Page) {}
     /** Elements */
     private get userNameInputBox() {
         return this.page.getByRole("textbox", { name: "Email:" });
@@ -26,7 +22,7 @@ export class HomePage extends BasePage {
     ) {
         await log("info", `Login to ${url}`);
 
-        await this.navigateTo(url);
+        await this.page.goto(url);
         await this.userNameInputBox.fill(username);
         await this.passwordInputBox.fill(password);
         await this.loginBtn.click();
