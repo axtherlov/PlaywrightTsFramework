@@ -48,6 +48,11 @@ steps:
   inputs:
       targetPath: reports/playwright-report
       artifact: playwright-report
+- task: PublishAllureReport@2
+  displayName: Publish Allure report
+  condition: always()
+  inputs:
+      testResultsDir: reports/allure-results
 - task: PublishPipelineArtifact@1
   displayName: Upload Allure results
   condition: always()
