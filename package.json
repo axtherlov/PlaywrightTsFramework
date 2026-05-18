@@ -22,6 +22,8 @@
     "prepare": "husky"
   },
   "devDependencies": {
+    "@faker-js/faker": "^10.4.0",
+    "@playwright/cli": "^0.1.11",
     "@playwright/test": "^1.59.0",
     "@types/node": "^25.0.10",
     "@typescript-eslint/eslint-plugin": "^8.58.0",
@@ -33,11 +35,8 @@
     "eslint-plugin-playwright": "^2.10.1",
     "globals": "^17.4.0",
     "husky": "^9.1.7",
-    "lint-staged": "^17.0.4"
-  },
-  "dependencies": {
-    "@faker-js/faker": "^10.4.0",
-    "@playwright/cli": "^0.1.11",
-    "tiny-invariant": "^1.3.3"
+    "lint-staged": "^17.0.4",
+    "tiny-invariant": "^1.3.3",
+    "zod": "^4.4.3"
   }
 }
