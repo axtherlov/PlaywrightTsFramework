@@ -18,3 +18,4 @@ Load these when the task involves the corresponding concern:
 | [test-data.md](test-data.md) | Test data factory pattern, faker usage, model/factory file locations, override rules |
 | [test-standards.md](test-standards.md) | GWT step structure, tagging strategy, assertion style, what to avoid |
 | [config.md](config.md) | Environment config, dotenv setup, `envConfig` usage, multi-environment support |
+| [api-services.md](api-services.md) | API service class pattern, payloads, contracts, authentication, and registration |

@@ -1,7 +1,7 @@
 import { expect } from "@playwright/test";
 import { envConfig } from "../../../config/environment-config";
 import type { ApiRequestFn, AuthType } from "../../api-types";
-import { GetProductsContract } from "../schemas/get-products.contract";
+import { GetProductsContract } from "../contracts/get-products.contract";
 import { ProductServiceEndpoints } from "./endpoints";
 import { CreateProductPayload } from "../payloads/create-product.payload";
 
