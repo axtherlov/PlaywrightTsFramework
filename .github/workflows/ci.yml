@@ -21,6 +21,7 @@ jobs:
             API_URL: ${{ secrets.API_URL }}
             ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
             ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+            AUTH_TYPE: ${{ secrets.AUTH_TYPE }}
         steps:
             # ── Stage 1: Environment Setup ────────────────────────────────
             - uses: actions/checkout@v5
