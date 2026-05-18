@@ -1,5 +1,5 @@
 import { expect } from "@playwright/test";
-import { test } from "../../../lib/ui/eaWebApp/fixtures/ui.fixture";
+import { test } from "../../../lib/ui/eaWebApp/fixtures/main.fixture";
 
 test.beforeEach(async ({ homePage }) => {
     await homePage.goToHome();

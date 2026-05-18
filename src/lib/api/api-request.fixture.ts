@@ -1,11 +1,11 @@
 import { test as base } from "@playwright/test";
-import { apiRequest as apiRequestOriginal } from "../plain-function";
+import { apiRequest as apiRequestOriginal } from "./api-request";
 import {
     ApiRequestMethods,
     ApiRequestFn,
     ApiRequestParams,
     ApiRequestResponse,
-} from "../api-types";
+} from "./api-types";
 
 export const test = base.extend<ApiRequestMethods>({
     /**

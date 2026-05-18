@@ -5,6 +5,8 @@ export const envConfig = {
     apiUrl: getApiUrl(),
     adminEmail: getAdminEmail(),
     adminPassword: getAdminPassword(),
+    authType: getAuthType(),
+    authTokenUrl: getAuthTokenUrl(),
 };
 
 function getBaseUrl() {
@@ -31,4 +33,17 @@ function getAdminPassword() {
     const adminPassword = process.env["ADMIN_PASSWORD"];
     invariant(adminPassword, "Cannot run tests without ADMIN_PASSWORD");
     return adminPassword;
+}
+
+function getAuthType(): string {
+    const authType = process.env["AUTH_TYPE"] ?? "basic";
+    invariant(
+        authType === "basic" || authType === "oauth",
+        `AUTH_TYPE must be "basic" or "oauth", got "${authType}"`,
+    );
+    return authType === "oauth" ? "Bearer" : "Basic";
+}
+
+function getAuthTokenUrl(): string | undefined {
+    return process.env["AUTH_TOKEN_URL"] || undefined;
 }

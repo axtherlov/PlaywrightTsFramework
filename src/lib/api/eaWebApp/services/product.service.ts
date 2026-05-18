@@ -1,17 +1,24 @@
 import { expect } from "@playwright/test";
 import { envConfig } from "../../../config/environment-config";
-import { ApiRequestFn } from "../../api-types";
-import { GetProductsContract } from "../../schemas/eaWebApp/getProducts.contract";
+import type { ApiRequestFn, AuthType } from "../../api-types";
+import { GetProductsContract } from "../schemas/get-products.contract";
 import { ProductServiceEndpoints } from "./endpoints";
-import { CreateProductPayload } from "../../payloads/eaWebApp/createProduct.payload";
+import { CreateProductPayload } from "../payloads/create-product.payload";
 
 export class ProductService {
-    async getProducts(apiRequest: ApiRequestFn) {
-        const test = ProductServiceEndpoints.getProducts;
-        const { status, body } = await apiRequest<GetProductsContract[]>({
+    constructor(
+        private readonly apiRequest: ApiRequestFn,
+        private readonly authToken: string,
+        private readonly authType: AuthType,
+    ) {}
+
+    async getProducts() {
+        const { status, body } = await this.apiRequest<GetProductsContract[]>({
             method: "GET",
             url: ProductServiceEndpoints.getProducts,
             baseUrl: envConfig.apiUrl,
+            headers: this.authToken,
+            authType: this.authType,
         });
 
         expect(status).toBe(200);
@@ -20,11 +27,13 @@ export class ProductService {
         return body as GetProductsContract[];
     }
 
-    async getProductById(apiRequest: ApiRequestFn, productId: string) {
-        const { status, body } = await apiRequest<GetProductsContract>({
+    async getProductById(productId: string) {
+        const { status, body } = await this.apiRequest<GetProductsContract>({
             method: "GET",
             url: ProductServiceEndpoints.getProductById(productId),
             baseUrl: envConfig.apiUrl,
+            headers: this.authToken,
+            authType: this.authType,
         });
 
         expect(status).toBe(200);
@@ -33,15 +42,14 @@ export class ProductService {
         return body as GetProductsContract;
     }
 
-    async createProduct(
-        apiRequest: ApiRequestFn,
-        payload: CreateProductPayload,
-    ) {
-        const { status, body } =  await apiRequest<GetProductsContract>({
+    async createProduct(payload: CreateProductPayload) {
+        const { status, body } = await this.apiRequest<GetProductsContract>({
             method: "POST",
             url: ProductServiceEndpoints.createProduct,
             baseUrl: envConfig.apiUrl,
             body: payload,
+            headers: this.authToken,
+            authType: this.authType,
         });
 
         expect(status).toBe(200);
