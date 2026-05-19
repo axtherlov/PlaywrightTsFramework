@@ -11,7 +11,7 @@ const BROWSERS = (process.env.BROWSERS ?? "chromium").split(",").map((b: string)
 const browserProjects = [
     {
         name: "chromium",
-        testMatch: /.*\.ui\.spec\.ts/,
+        testMatch: /.*(?<!\.api)\.spec\.ts/,
         use: {
             viewport: null,
             launchOptions: {
@@ -21,12 +21,12 @@ const browserProjects = [
     },
     {
         name: "firefox",
-        testMatch: /.*\.ui\.spec\.ts/,
+        testMatch: /.*(?<!\.api)\.spec\.ts/,
         use: { ...devices["Desktop Firefox"] },
     },
     {
         name: "edge",
-        testMatch: /.*\.ui\.spec\.ts/,
+        testMatch: /.*(?<!\.api)\.spec\.ts/,
         use: {
             channel: "msedge",
             viewport: null,
