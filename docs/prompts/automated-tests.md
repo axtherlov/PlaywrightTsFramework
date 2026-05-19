@@ -6,16 +6,16 @@ Using playwright-cli Navigate to <PAGE> and create the pageObject
 
 execute the task based on @docs/test-framework/rules.md
 
-## Add a new test
+## Add a new automated test
 
-Add a test for the following scenarios
+Add automated tests for the following scenarios
 
 - <Scenario1> (e.g. register a new user)
 - <Scenario2> (e.g. try to create a user with incorrect data)
 
-Once created run the test and provide summary
+if you consider other scenarios add them, then list them and ask to approve. Once approved. Create the tests and provide a summary
 
-If needed use playwright-cli to navigate and capture webElements to create the page-objects
+Use playwright-cli to navigate and capture webElements to create the page-objects
 
 execute the task based on @docs/test-framework/rules.md
 
@@ -28,7 +28,3 @@ Add a flow for the following scenario
 If needed use playwright-cli to navigate and capture webElements to create the page-objects
 
 execute the task based on @docs/test-framework/rules.md
-
-## Debug and fix test with healing agent
-
-Review the failed test using @.github/agents/playwright-test-healer.agent.md

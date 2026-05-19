@@ -7,7 +7,6 @@ import { ShoppingCartPage } from "../page-objects/shopping-cart.page";
 import { SignIn } from "../page-objects/sign-in.page";
 import { Checkout } from "../page-objects/checkout.page";
 import { ProductsMenu } from "../components/products-menu.page";
-import { RegisterPage } from "../page-objects/register.page";
 import { LoginPage } from "../page-objects/login.page";
 
 type Pages = {
@@ -19,7 +18,6 @@ type Pages = {
     productDetailsPage: ProductDetailsPage;
     shoppingCartPage: ShoppingCartPage;
     checkout: Checkout;
-    registerPage: RegisterPage;
     loginPage: LoginPage;
 };
 
@@ -47,9 +45,6 @@ const pageFactory = customTest.extend<Pages>({
     },
     checkout: async ({ page }, use) => {
         await use(new Checkout(page));
-    },
-    registerPage: async ({ page }, use) => {
-        await use(new RegisterPage(page));
     },
     loginPage: async ({ page }, use) => {
         await use(new LoginPage(page));
