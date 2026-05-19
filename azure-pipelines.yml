@@ -4,64 +4,65 @@
 # https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
 
 trigger:
-- main
+    - main
 
 pool:
-  vmImage: 'ubuntu-latest'
+    vmImage: "ubuntu-latest"
 
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+    solution: "**/*.sln"
+    buildPlatform: "Any CPU"
+    buildConfiguration: "Release"
 
 steps:
-# ── Stage 1: Environment Setup ────────────────────────────────
-- task: NodeTool@0
-  displayName: Install Node.js
-  inputs:
-      versionSpec: 20.x
-- script: npm ci
-  displayName: Install dependencies
-- script: npx playwright install chromium --with-deps
-  displayName: Install Playwright browsers
-# ── Stage 2: Test Execution ───────────────────────────────────
-- script: npm run test:nopCommerce
-  displayName: Run nopCommerce UI tests
-  env:
-      ENVIRONMENT: $(ENVIRONMENT)
-      BASE_URL: $(BASE_URL)
-      API_URL: $(API_URL)
-      ADMIN_EMAIL: $(ADMIN_EMAIL)
-      ADMIN_PASSWORD: $(ADMIN_PASSWORD)
-# ── Stage 3: Reporting ────────────────────────────────────────
-- task: PublishTestResults@2
-  displayName: Publish test results
-  condition: always()
-  inputs:
-      testResultsFormat: JUnit
-      testResultsFiles: reports/junit/results.xml
-      mergeTestResults: true
-      testRunTitle: nopCommerce UI Tests
-- task: PublishPipelineArtifact@1
-  displayName: Upload Playwright report
-  condition: always()
-  inputs:
-      targetPath: reports/playwright-report
-      artifact: playwright-report
-- task: PublishAllureReport@2
-  displayName: Publish Allure report
-  condition: always()
-  inputs:
-      testResultsDir: reports/allure-results
-- task: PublishPipelineArtifact@1
-  displayName: Upload Allure results
-  condition: always()
-  inputs:
-      targetPath: reports/allure-results
-      artifact: allure-results
-- task: PublishPipelineArtifact@1
-  displayName: Upload test results
-  condition: always()
-  inputs:
-      targetPath: reports/test-results
-      artifact: test-results
+    # ── Stage 1: Environment Setup ────────────────────────────────
+    - task: NodeTool@0
+      displayName: Install Node.js
+      inputs:
+          versionSpec: 20.x
+    - script: npm ci
+      displayName: Install dependencies
+    - script: npx playwright install chromium --with-deps
+      displayName: Install Playwright browsers
+    # ── Stage 2: Test Execution ───────────────────────────────────
+    - script: npm run test:nopCommerce
+      displayName: Run nopCommerce UI tests
+      env:
+          ENVIRONMENT: $(ENVIRONMENT)
+          BASE_URL: $(BASE_URL)
+          API_URL: $(API_URL)
+          ADMIN_EMAIL: $(ADMIN_EMAIL)
+          ADMIN_PASSWORD: $(ADMIN_PASSWORD)
+          BROWSERS: $(BROWSERS)
+    # ── Stage 3: Reporting ────────────────────────────────────────
+    - task: PublishTestResults@2
+      displayName: Publish test results
+      condition: always()
+      inputs:
+          testResultsFormat: JUnit
+          testResultsFiles: reports/junit/results.xml
+          mergeTestResults: true
+          testRunTitle: nopCommerce UI Tests
+    - task: PublishPipelineArtifact@1
+      displayName: Upload Playwright report
+      condition: always()
+      inputs:
+          targetPath: reports/playwright-report
+          artifact: playwright-report
+    - task: PublishAllureReport@2
+      displayName: Publish Allure report
+      condition: always()
+      inputs:
+          testResultsDir: reports/allure-results
+    - task: PublishPipelineArtifact@1
+      displayName: Upload Allure results
+      condition: always()
+      inputs:
+          targetPath: reports/allure-results
+          artifact: allure-results
+    - task: PublishPipelineArtifact@1
+      displayName: Upload test results
+      condition: always()
+      inputs:
+          targetPath: reports/test-results
+          artifact: test-results
