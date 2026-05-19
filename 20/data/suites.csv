@@ -1,0 +1,4 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","18","Should get specific product by id","api","Tue May 19 11:42:38 UTC 2026","passed","Tue May 19 11:42:38 UTC 2026","Product API CRUD","eaWebApp/backend/products.api.spec.ts","",""
+"","225","Should get list of products","api","Tue May 19 11:42:38 UTC 2026","passed","Tue May 19 11:42:38 UTC 2026","Product API CRUD","eaWebApp/backend/products.api.spec.ts","",""
+"","123","Should create a product","api","Tue May 19 11:42:38 UTC 2026","passed","Tue May 19 11:42:38 UTC 2026","Product API CRUD","eaWebApp/backend/products.api.spec.ts","",""
