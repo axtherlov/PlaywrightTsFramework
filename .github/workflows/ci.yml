@@ -37,7 +37,7 @@ jobs:
 
             # ── Stage 2: Test Execution & Reporting ───────────────────────
             - name: Run Playwright tests
-              run: npm run test
+              run: npm run test:eaWebApp
             - name: Load previous Allure history
               uses: actions/checkout@v5
               if: always()
