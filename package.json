@@ -11,9 +11,8 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "npx playwright test src/tests/eaWebApp",
-    "test:nopCommerce": "npx playwright test src/tests/nopCommerce/ui/",
-    "test:eaWebApp": "npx playwright test --headed src/tests/nopCommerce/ui/",
+    "test:nopCommerce": "npx playwright test src/tests/nopCommerce/",
+    "test:eaWebApp": "npx playwright test src/tests/eaWebApp/",
     "test:nopCommerce-be": "npx playwright test src/tests/nopCommerce/backend/",
     "lint": "eslint src/lib src/tests playwright.config.ts",
     "lint:fix": "eslint src/lib src/tests playwright.config.ts --fix",
