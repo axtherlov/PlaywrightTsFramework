@@ -1,0 +1,8 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","189","Should get list of products","api","Mon May 25 20:35:57 UTC 2026","passed","Mon May 25 20:35:57 UTC 2026","Product API CRUD","eaWebApp/backend/products.api.spec.ts","",""
+"","4567","product can be created","chromium","Mon May 25 20:35:58 UTC 2026","passed","Mon May 25 20:36:02 UTC 2026","Product UI Flow","eaWebApp/ui/product.ui.spec.ts","",""
+"","4671","Product can be deleted","firefox","Mon May 25 20:36:14 UTC 2026","passed","Mon May 25 20:36:18 UTC 2026","Product UI Flow","eaWebApp/ui/product.ui.spec.ts","",""
+"","17","Should get specific product by id","api","Mon May 25 20:35:57 UTC 2026","passed","Mon May 25 20:35:57 UTC 2026","Product API CRUD","eaWebApp/backend/products.api.spec.ts","",""
+"","4393","Product can be deleted","chromium","Mon May 25 20:36:02 UTC 2026","passed","Mon May 25 20:36:07 UTC 2026","Product UI Flow","eaWebApp/ui/product.ui.spec.ts","",""
+"","5705","product can be created","firefox","Mon May 25 20:36:07 UTC 2026","passed","Mon May 25 20:36:13 UTC 2026","Product UI Flow","eaWebApp/ui/product.ui.spec.ts","",""
+"","107","Should create a product","api","Mon May 25 20:35:57 UTC 2026","passed","Mon May 25 20:35:57 UTC 2026","Product API CRUD","eaWebApp/backend/products.api.spec.ts","",""
