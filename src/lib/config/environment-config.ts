@@ -1,49 +1,21 @@
-import invariant from "tiny-invariant";
+import { z } from "zod";
+
+const envSchema = z.object({
+    BASE_URL: z.string().min(1, "Cannot run tests without BASE_URL"),
+    API_URL: z.string().min(1, "Cannot run tests without API_URL"),
+    ADMIN_EMAIL: z.string().min(1, "Cannot run tests without ADMIN_EMAIL"),
+    ADMIN_PASSWORD: z.string().min(1, "Cannot run tests without ADMIN_PASSWORD"),
+    AUTH_TYPE: z.enum(["basic", "oauth"]).default("basic"),
+    AUTH_TOKEN_URL: z.string().optional(),
+});
+
+const env = envSchema.parse(process.env);
 
 export const envConfig = {
-    baseUrl: getBaseUrl(),
-    apiUrl: getApiUrl(),
-    adminEmail: getAdminEmail(),
-    adminPassword: getAdminPassword(),
-    authType: getAuthType(),
-    authTokenUrl: getAuthTokenUrl(),
+    baseUrl: env.BASE_URL,
+    apiUrl: env.API_URL,
+    adminEmail: env.ADMIN_EMAIL,
+    adminPassword: env.ADMIN_PASSWORD,
+    authType: env.AUTH_TYPE === "oauth" ? "Bearer" : "Basic",
+    authTokenUrl: env.AUTH_TOKEN_URL,
 };
-
-function getBaseUrl() {
-    const baseUrl = process.env["BASE_URL"];
-    invariant(baseUrl, "Cannot run tests without BASE_URL");
-    return baseUrl;
-}
-
-function getApiUrl() {
-    const apiURL = process.env["API_URL"];
-    invariant(apiURL, "Cannot run tests without API_URL");
-    return apiURL;
-}
-
-/** Admin account email loaded from ADMIN_EMAIL env variable. */
-function getAdminEmail() {
-    const adminEmail = process.env["ADMIN_EMAIL"];
-    invariant(adminEmail, "Cannot run tests without ADMIN_EMAIL");
-    return adminEmail;
-}
-
-/** Admin account password loaded from ADMIN_PASSWORD env variable. */
-function getAdminPassword() {
-    const adminPassword = process.env["ADMIN_PASSWORD"];
-    invariant(adminPassword, "Cannot run tests without ADMIN_PASSWORD");
-    return adminPassword;
-}
-
-function getAuthType(): string {
-    const authType = process.env["AUTH_TYPE"] ?? "basic";
-    invariant(
-        authType === "basic" || authType === "oauth",
-        `AUTH_TYPE must be "basic" or "oauth", got "${authType}"`,
-    );
-    return authType === "oauth" ? "Bearer" : "Basic";
-}
-
-function getAuthTokenUrl(): string | undefined {
-    return process.env["AUTH_TOKEN_URL"] || undefined;
-}
