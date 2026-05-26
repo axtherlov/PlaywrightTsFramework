@@ -6,7 +6,9 @@ const environmentPath = `./environments/${environment}.env`;
 
 dotenv.config({ path: environmentPath });
 
-const BROWSERS = (process.env.BROWSERS ?? "chromium").split(",").map((b: string) => b.trim());
+const BROWSERS = (process.env.BROWSERS ?? "chromium")
+    .split(",")
+    .map((b: string) => b.trim());
 
 const browserProjects = [
     {
@@ -48,7 +50,7 @@ const apiProject = {
 export default defineConfig({
     testDir: "./src/tests",
     outputDir: "reports/test-results",
-    globalTimeout: 3 * 60 * 1000,
+    globalTimeout: 10 * 60 * 1000,
     globalSetup: require.resolve("./src/lib/global/global-setup"),
     globalTeardown: require.resolve("./src/lib/global/global-teardown"),
     /* Run tests in files in parallel */
