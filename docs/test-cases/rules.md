@@ -86,3 +86,116 @@ Each test case must include one tag derived from its Priority:
 Tags drive test execution filtering in BrowserStack — e.g. run only `smoke` tagged cases on every build, `regression` before a release.
 
 ---
+
+## Add New Test Case
+
+Follow these steps **in order** when creating a new test case. Every field is required.
+
+### Step 1 — Write the Title
+
+Format: `[Verb] [what] [condition/context]`
+
+- Use action verbs: _Verify_, _Submit_, _Navigate_, _Display_, _Reject_
+- Be specific enough to distinguish from similar cases
+- Examples:
+    - `Verify checkout completes with valid credit card`
+    - `Reject login when password is incorrect`
+    - `Display error when required field is empty`
+
+---
+
+### Step 2 — Define Preconditions
+
+List everything that must be true **before** step 1 executes:
+
+- System/environment state (e.g. _User is on the login page_)
+- Required data (e.g. _A registered user account exists_)
+- Auth state (e.g. _User is not logged in_)
+- Any setup that the test itself does not perform
+
+If there are no meaningful preconditions, write: _None_
+
+---
+
+### Step 3 — Assign Priority
+
+Ask: _what is the impact if this scenario fails?_
+
+| If the failure…                                         | Priority     |
+| ------------------------------------------------------- | ------------ |
+| Blocks the core user journey entirely                   | **Critical** |
+| Breaks an important alternate path or key error message | **High**     |
+| Affects an edge case or less-used flow                  | **Medium**   |
+| Is cosmetic, copy-related, or an extreme edge input     | **Low**      |
+
+**Do not default every case to the same priority.** A test suite where everything is Critical signals no real triage has been done.
+
+> **BrowserStack note:** The `createTestCase` API does not accept a priority field — all cases are created with the default priority (Medium). After creation, call `updateTestCase` with the intended priority for each case.
+
+---
+
+### Step 4 — Select the Type
+
+| Type           | Use when…                                                  |
+| -------------- | ---------------------------------------------------------- |
+| **Functional** | Verifying a feature works as specified (happy path)        |
+| **Negative**   | Verifying the system handles invalid input or error states |
+| **Boundary**   | Testing at or just outside the limit of an allowed value   |
+| **Regression** | Re-verifying existing behaviour after a change             |
+| **Smoke**      | Minimal check that the feature is alive and reachable      |
+
+---
+
+### Step 5 — Write the Steps with Expected Results
+
+Each step must be **one discrete, observable action**. Embed the expected result **inside the same step** using an `→` marker so the reader knows what to verify without hunting through a separate section.
+
+Format:
+
+```
+1. [Action] → [Expected result]
+2. [Action] → [Expected result]
+...
+```
+
+Rules:
+
+- Start each action with a verb (_Click_, _Enter_, _Select_, _Navigate to_, _Submit_)
+- Expected results describe what the **system** does, not what the user does
+- If a step has no verifiable output (e.g. a navigation step leading into the next action), combine it with the next step or note the URL/page that appears
+- The final step must always have a clear, unambiguous expected result
+
+Example:
+
+```
+1. Navigate to /login → Login page is displayed with email and password fields
+2. Enter an invalid email format in the email field → No immediate error shown
+3. Leave the password field empty and click "Sign in" → Error message "Invalid email or password" is displayed; user remains on /login
+```
+
+---
+
+### Step 6 — Apply the Tag
+
+Derive the tag directly from the Priority assigned in Step 3:
+
+| Priority | Tag          |
+| -------- | ------------ |
+| Critical | `smoke`      |
+| High     | `regression` |
+| Medium   | `regression` |
+| Low      | `regression` |
+
+---
+
+### Quick Checklist Before Saving
+
+- [ ] Title follows `[Verb] [what] [condition]` format
+- [ ] Preconditions cover all required setup (or explicitly say _None_)
+- [ ] Priority reflects actual impact — not every case is Critical
+- [ ] Type matches the nature of the scenario
+- [ ] Every step has an expected result inline (`→`)
+- [ ] Tag matches Priority per the table above
+- [ ] Technique tag is included (EP / BVA / DT / ST / UC)
+
+---
